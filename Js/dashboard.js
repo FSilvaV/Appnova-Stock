@@ -647,7 +647,109 @@ function cambiarSeccion(seccion) {
       </tbody>
     </table>
   </div>`,
-    proveedores: `<div style="padding:1rem;color:var(--muted)">Módulo Proveedores — próximamente</div>`,
+    proveedores: `
+  <!-- Barra de acciones -->
+  <div class="module-toolbar">
+    <div class="toolbar-search">
+      <span class="toolbar-search-icon">🔍</span>
+      <input type="text" class="toolbar-search-input" placeholder="Buscar proveedor...">
+    </div>
+  </div>
+
+  <!-- Tabla de proveedores -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <div class="section-card-title">Lista de proveedores</div>
+      <span class="badge blue">4 proveedores</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Proveedor</th>
+          <th>Contacto</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Categorías</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="product-name">Ferretería Central Ltda.</div>
+            <div class="product-sku">RUT: 76.123.456-7</div>
+          </td>
+          <td>Juan Pérez</td>
+          <td>+56 9 1234 5678</td>
+          <td>contacto@ferrcentral.cl</td>
+          <td>Herramientas, Ferretería</td>
+          <td><span class="badge green">Activo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action blue" title="Ver detalle">👁</button>
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">Distribuidora El Material</div>
+            <div class="product-sku">RUT: 77.654.321-0</div>
+          </td>
+          <td>Ana González</td>
+          <td>+56 9 8765 4321</td>
+          <td>ventas@elmaterial.cl</td>
+          <td>Materiales, Pintura</td>
+          <td><span class="badge green">Activo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action blue" title="Ver detalle">👁</button>
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">Seguridad Pro SpA</div>
+            <div class="product-sku">RUT: 78.111.222-3</div>
+          </td>
+          <td>Carlos Muñoz</td>
+          <td>+56 9 5555 6666</td>
+          <td>info@seguridadpro.cl</td>
+          <td>Seguridad</td>
+          <td><span class="badge green">Activo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action blue" title="Ver detalle">👁</button>
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">Eléctrica Norte S.A.</div>
+            <div class="product-sku">RUT: 79.333.444-5</div>
+          </td>
+          <td>Rosa Díaz</td>
+          <td>+56 9 4444 3333</td>
+          <td>rosa@electricanorte.cl</td>
+          <td>Electricidad</td>
+          <td><span class="badge red">Inactivo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action blue" title="Ver detalle">👁</button>
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`,
     reportes: `<div style="padding:1rem;color:var(--muted)">Módulo Reportes — próximamente</div>`,
     usuarios: `<div style="padding:1rem;color:var(--muted)">Módulo Usuarios — próximamente</div>`
   };
