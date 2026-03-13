@@ -327,7 +327,103 @@ function cambiarSeccion(seccion) {
       </tbody>
     </table>
   </div>`,
-    movimientos: `<div style="padding:1rem;color:var(--muted)">Módulo Movimientos — próximamente</div>`,
+    movimientos: `
+  <!-- Barra de acciones -->
+  <div class="module-toolbar">
+    <div class="toolbar-search">
+      <span class="toolbar-search-icon">🔍</span>
+      <input type="text" class="toolbar-search-input" placeholder="Buscar producto o usuario...">
+    </div>
+    <div class="toolbar-filters">
+      <select class="toolbar-select">
+        <option value="">Todos los tipos</option>
+        <option>Entrada</option>
+        <option>Salida</option>
+      </select>
+      <select class="toolbar-select">
+        <option value="">Todas las fechas</option>
+        <option>Hoy</option>
+        <option>Esta semana</option>
+        <option>Este mes</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tabla de movimientos -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <div class="section-card-title">Historial de movimientos</div>
+      <span class="badge blue">38 movimientos este mes</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Producto</th>
+          <th>Tipo</th>
+          <th>Cantidad</th>
+          <th>Stock anterior</th>
+          <th>Stock nuevo</th>
+          <th>Usuario</th>
+          <th>Nota</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hoy 11:00</td>
+          <td>
+            <div class="product-name">Pintura blanca 1L</div>
+            <div class="product-sku">SKU: PINT-010</div>
+          </td>
+          <td><span class="badge red">Salida</span></td>
+          <td>3</td>
+          <td>18</td>
+          <td>15</td>
+          <td>Francisco S.</td>
+          <td>Venta mostrador</td>
+        </tr>
+        <tr>
+          <td>Hoy 10:15</td>
+          <td>
+            <div class="product-name">Tornillos 1/2" (caja)</div>
+            <div class="product-sku">SKU: TORN-002</div>
+          </td>
+          <td><span class="badge red">Salida</span></td>
+          <td>5</td>
+          <td>13</td>
+          <td>8</td>
+          <td>María G.</td>
+          <td>Venta mostrador</td>
+        </tr>
+        <tr>
+          <td>Hoy 09:30</td>
+          <td>
+            <div class="product-name">Martillo Stanley 16oz</div>
+            <div class="product-sku">SKU: MART-001</div>
+          </td>
+          <td><span class="badge green">Entrada</span></td>
+          <td>20</td>
+          <td>25</td>
+          <td>45</td>
+          <td>Francisco S.</td>
+          <td>Compra proveedor</td>
+        </tr>
+        <tr>
+          <td>Ayer 16:45</td>
+          <td>
+            <div class="product-name">Lija 120 (unidad)</div>
+            <div class="product-sku">SKU: LIJA-003</div>
+          </td>
+          <td><span class="badge red">Salida</span></td>
+          <td>8</td>
+          <td>10</td>
+          <td>2</td>
+          <td>María G.</td>
+          <td>Venta mostrador</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`,
     alertas: `<div style="padding:1rem;color:var(--muted)">Módulo Alertas — próximamente</div>`,
     categorias: `<div style="padding:1rem;color:var(--muted)">Módulo Categorías — próximamente</div>`,
     proveedores: `<div style="padding:1rem;color:var(--muted)">Módulo Proveedores — próximamente</div>`,
