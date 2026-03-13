@@ -1,0 +1,302 @@
+/* ============================================================
+   BASE — reset y variables
+   Mismos colores que el login para consistencia visual
+============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --blue: #3b82f6;
+  --blue-dark: #1d4ed8;
+  --blue-light: #eff6ff;
+  --charcoal: #1e293b;
+  --charcoal2: #334155;
+  --text: #1e293b;
+  --text2: #475569;
+  --muted: #94a3b8;
+  --border: #e2e8f0;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --green: #10b981;
+  --green-light: #d1fae5;
+  --red: #ef4444;
+  --red-light: #fef2f2;
+  --amber: #f59e0b;
+  --amber-light: #fef3c7;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow: 0 4px 16px rgba(30,58,138,0.08);
+  --shadow-lg: 0 12px 40px rgba(30,58,138,0.14);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden; /* el scroll ocurre dentro del contenido, no en el body */
+}
+
+
+/* ============================================================
+   APP WRAPPER — layout principal de 2 columnas
+   sidebar fijo a la izquierda + contenido a la derecha
+============================================================ */
+
+.app-wrapper {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100vh;
+}
+
+
+/* ============================================================
+   SIDEBAR — navegación lateral fija
+============================================================ */
+
+.sidebar {
+  background: var(--charcoal);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto; /* scroll interno si el menú es muy largo */
+  position: sticky;
+  top: 0;
+}
+
+/* Logo */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1.25rem;
+}
+
+.sidebar-logo-icon {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.sidebar-logo-name {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+.sidebar-logo-tag {
+  font-size: 0.58rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+
+/* Separador */
+.sidebar-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+  margin: 0 1.25rem;
+}
+
+/* Navegación */
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+/* Etiqueta de grupo */
+.sidebar-nav-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 0.5rem 0.35rem;
+}
+
+/* Item de navegación */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.sidebar-item:hover {
+  background: rgba(255,255,255,0.07);
+  color: var(--white);
+}
+
+/* Item activo — sección actual */
+.sidebar-item.active {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.sidebar-item-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Badge de alertas */
+.sidebar-badge {
+  margin-left: auto;
+  background: var(--red);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 99px;
+}
+
+/* Perfil de usuario al fondo del sidebar */
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin-top: auto;
+}
+
+.sidebar-profile-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: white;
+  flex-shrink: 0;
+}
+
+.sidebar-profile-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.sidebar-profile-role {
+  font-size: 0.68rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Botón cerrar sesión */
+.sidebar-logout {
+  margin-left: auto;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.sidebar-logout:hover {
+  color: var(--red);
+}
+
+
+/* ============================================================
+   CONTENIDO PRINCIPAL
+============================================================ */
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Header superior */
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.main-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.main-header-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--charcoal);
+  letter-spacing: -0.02em;
+}
+
+.main-header-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.main-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.main-header-date {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Botón de acción principal */
+.btn-primary {
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  background: var(--blue);
+  border: none;
+  color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.35);
+}
+
+.btn-primary:hover {
+  background: var(--blue-dark);
+  transform: translateY(-1px);
+}
+
+/* Área de contenido con scroll */
+.main-body {
+  flex: 1;
+  overflow-y: auto; /* solo esta área hace scroll */
+  padding: 2rem;
+}
