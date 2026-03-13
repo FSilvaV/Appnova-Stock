@@ -224,7 +224,109 @@ function cambiarSeccion(seccion) {
         </table>
       </div>
     `,
-    productos: `<div style="padding:1rem;color:var(--muted)">Módulo Productos — próximamente</div>`,
+    productos: `
+  <!-- Barra de búsqueda y filtros -->
+  <div class="module-toolbar">
+    <div class="toolbar-search">
+      <span class="toolbar-search-icon">🔍</span>
+      <input type="text" class="toolbar-search-input" placeholder="Buscar producto...">
+    </div>
+    <div class="toolbar-filters">
+      <select class="toolbar-select">
+        <option value="">Todas las categorías</option>
+        <option>Herramientas</option>
+        <option>Materiales</option>
+        <option>Ferretería</option>
+      </select>
+      <select class="toolbar-select">
+        <option value="">Todos los estados</option>
+        <option>Stock ok</option>
+        <option>Stock bajo</option>
+        <option>Sin stock</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tabla de productos -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <div class="section-card-title">Lista de productos</div>
+      <span class="badge blue">124 productos</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Stock mín.</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="product-img-placeholder">📦</div></td>
+          <td>
+            <div class="product-name">Martillo Stanley 16oz</div>
+            <div class="product-sku">SKU: MART-001</div>
+          </td>
+          <td>Herramientas</td>
+          <td>$8.990</td>
+          <td>45</td>
+          <td>10</td>
+          <td><span class="badge green">Ok</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action blue" title="Ver detalle">👁</button>
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><div class="product-img-placeholder">📦</div></td>
+          <td>
+            <div class="product-name">Tornillos 1/2" (caja x100)</div>
+            <div class="product-sku">SKU: TORN-002</div>
+          </td>
+          <td>Ferretería</td>
+          <td>$2.490</td>
+          <td>8</td>
+          <td>15</td>
+          <td><span class="badge amber">Bajo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action blue" title="Ver detalle">👁</button>
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><div class="product-img-placeholder">📦</div></td>
+          <td>
+            <div class="product-name">Lija 120 (unidad)</div>
+            <div class="product-sku">SKU: LIJA-003</div>
+          </td>
+          <td>Materiales</td>
+          <td>$390</td>
+          <td>2</td>
+          <td>10</td>
+          <td><span class="badge red">Crítico</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action blue" title="Ver detalle">👁</button>
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`,
     movimientos: `<div style="padding:1rem;color:var(--muted)">Módulo Movimientos — próximamente</div>`,
     alertas: `<div style="padding:1rem;color:var(--muted)">Módulo Alertas — próximamente</div>`,
     categorias: `<div style="padding:1rem;color:var(--muted)">Módulo Categorías — próximamente</div>`,
