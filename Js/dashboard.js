@@ -750,7 +750,89 @@ function cambiarSeccion(seccion) {
       </tbody>
     </table>
   </div>`,
-    reportes: `<div style="padding:1rem;color:var(--muted)">Módulo Reportes — próximamente</div>`,
+    reportes: `
+  <!-- Tarjetas de resumen -->
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <div class="stat-card-icon blue">📥</div>
+      <div class="stat-card-info">
+        <div class="stat-card-num">87</div>
+        <div class="stat-card-label">Entradas este mes</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-icon red">📤</div>
+      <div class="stat-card-info">
+        <div class="stat-card-num">142</div>
+        <div class="stat-card-label">Salidas este mes</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-icon green">💰</div>
+      <div class="stat-card-info">
+        <div class="stat-card-num">$1.2M</div>
+        <div class="stat-card-label">Valor en inventario</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-icon amber">📊</div>
+      <div class="stat-card-info">
+        <div class="stat-card-num">38</div>
+        <div class="stat-card-label">Movimientos totales</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Opciones de reporte -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <div class="section-card-title">Generar reportes</div>
+    </div>
+    <div class="reports-grid">
+
+      <div class="report-item">
+        <div class="report-item-icon">📦</div>
+        <div class="report-item-info">
+          <div class="report-item-title">Inventario completo</div>
+          <div class="report-item-desc">Lista de todos los productos con stock actual y valorización</div>
+        </div>
+        <button class="btn-report">⬇ Exportar PDF</button>
+      </div>
+
+      <div class="report-item">
+        <div class="report-item-icon">🔄</div>
+        <div class="report-item-info">
+          <div class="report-item-title">Movimientos del mes</div>
+          <div class="report-item-desc">Historial completo de entradas y salidas del período</div>
+        </div>
+        <button class="btn-report">⬇ Exportar PDF</button>
+      </div>
+
+      <div class="report-item">
+        <div class="report-item-icon">🚨</div>
+        <div class="report-item-info">
+          <div class="report-item-title">Alertas de stock</div>
+          <div class="report-item-desc">Productos bajo el stock mínimo que requieren reposición</div>
+        </div>
+        <button class="btn-report">⬇ Exportar PDF</button>
+      </div>
+
+      <div class="report-item">
+        <div class="report-item-icon">🏭</div>
+        <div class="report-item-info">
+          <div class="report-item-title">Compras por proveedor</div>
+          <div class="report-item-desc">Resumen de entradas agrupadas por proveedor</div>
+        </div>
+        <button class="btn-report">⬇ Exportar PDF</button>
+      </div>
+
+    </div>
+  </div>`,
     usuarios: `<div style="padding:1rem;color:var(--muted)">Módulo Usuarios — próximamente</div>`
   };
 
