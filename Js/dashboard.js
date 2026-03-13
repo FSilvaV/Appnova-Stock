@@ -104,11 +104,136 @@ function cambiarSeccion(seccion) {
   // Aquí se cargará el contenido de cada sección
   // Por ahora muestra un placeholder
   // En los próximos pasos agregaremos el HTML de cada sección
-  mainBody.innerHTML = `
-    <div style="padding:2rem;color:var(--muted);font-size:0.9rem">
-      Contenido de <strong>${config.titulo}</strong> — próximamente
-    </div>
-  `;
+  // Carga el contenido según la sección activa
+  const contenidos = {
+    dashboard: `
+      <!-- Tarjetas de resumen -->
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-card-icon blue">📦</div>
+          <div class="stat-card-info">
+            <div class="stat-card-num">124</div>
+            <div class="stat-card-label">Productos registrados</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-icon green">✅</div>
+          <div class="stat-card-info">
+            <div class="stat-card-num">98</div>
+            <div class="stat-card-label">Productos con stock ok</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-icon red">🚨</div>
+          <div class="stat-card-info">
+            <div class="stat-card-num">3</div>
+            <div class="stat-card-label">Alertas de stock bajo</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-icon amber">🔄</div>
+          <div class="stat-card-info">
+            <div class="stat-card-num">12</div>
+            <div class="stat-card-label">Movimientos hoy</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Últimos movimientos -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">Últimos movimientos</div>
+          <a href="#" class="section-card-link">Ver todos →</a>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Tipo</th>
+              <th>Cantidad</th>
+              <th>Fecha</th>
+              <th>Usuario</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Martillo Stanley 16oz</td>
+              <td><span class="badge green">Entrada</span></td>
+              <td>20</td>
+              <td>Hoy 09:30</td>
+              <td>Francisco S.</td>
+            </tr>
+            <tr>
+              <td>Tornillos 1/2" (caja)</td>
+              <td><span class="badge red">Salida</span></td>
+              <td>5</td>
+              <td>Hoy 10:15</td>
+              <td>María G.</td>
+            </tr>
+            <tr>
+              <td>Pintura blanca 1L</td>
+              <td><span class="badge red">Salida</span></td>
+              <td>3</td>
+              <td>Hoy 11:00</td>
+              <td>Francisco S.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Productos con stock bajo -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">⚠️ Productos con stock bajo</div>
+          <a href="#" class="section-card-link">Ver alertas →</a>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Stock actual</th>
+              <th>Stock mínimo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lija 120 (unidad)</td>
+              <td>2</td>
+              <td>10</td>
+              <td><span class="badge red">Crítico</span></td>
+            </tr>
+            <tr>
+              <td>Cinta adhesiva 2"</td>
+              <td>5</td>
+              <td>15</td>
+              <td><span class="badge amber">Bajo</span></td>
+            </tr>
+            <tr>
+              <td>Guantes de trabajo L</td>
+              <td>8</td>
+              <td>10</td>
+              <td><span class="badge amber">Bajo</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+    productos: `<div style="padding:1rem;color:var(--muted)">Módulo Productos — próximamente</div>`,
+    movimientos: `<div style="padding:1rem;color:var(--muted)">Módulo Movimientos — próximamente</div>`,
+    alertas: `<div style="padding:1rem;color:var(--muted)">Módulo Alertas — próximamente</div>`,
+    categorias: `<div style="padding:1rem;color:var(--muted)">Módulo Categorías — próximamente</div>`,
+    proveedores: `<div style="padding:1rem;color:var(--muted)">Módulo Proveedores — próximamente</div>`,
+    reportes: `<div style="padding:1rem;color:var(--muted)">Módulo Reportes — próximamente</div>`,
+    usuarios: `<div style="padding:1rem;color:var(--muted)">Módulo Usuarios — próximamente</div>`
+  };
+
+  mainBody.innerHTML = contenidos[seccion] || '';
 }
 
 // Agrega evento click a cada item del sidebar
