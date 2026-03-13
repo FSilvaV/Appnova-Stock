@@ -609,3 +609,69 @@ html, body {
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
+/* ============================================================
+   REPORTES — grid de opciones de reporte
+============================================================ */
+
+.reports-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.report-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.report-item:hover {
+  border-color: var(--blue);
+  background: var(--blue-light);
+}
+
+.report-item-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.report-item-info {
+  flex: 1;
+}
+
+.report-item-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 0.2rem;
+}
+
+.report-item-desc {
+  font-size: 0.78rem;
+  color: var(--text2);
+}
+
+.btn-report {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-report:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+}
