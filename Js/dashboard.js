@@ -833,7 +833,109 @@ function cambiarSeccion(seccion) {
 
     </div>
   </div>`,
-    usuarios: `<div style="padding:1rem;color:var(--muted)">Módulo Usuarios — próximamente</div>`
+    usuarios: `
+  <!-- Barra de acciones -->
+  <div class="module-toolbar">
+    <div class="toolbar-search">
+      <span class="toolbar-search-icon">🔍</span>
+      <input type="text" class="toolbar-search-input" placeholder="Buscar usuario...">
+    </div>
+    <div class="toolbar-filters">
+      <select class="toolbar-select">
+        <option value="">Todos los roles</option>
+        <option>Administrador</option>
+        <option>Supervisor</option>
+        <option>Vendedor</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <div class="section-card-title">Gestión de usuarios</div>
+      <span class="badge blue">3 usuarios</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Último acceso</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="user-cell">
+              <div class="user-avatar blue">F</div>
+              <div>
+                <div class="product-name">Francisco Silva</div>
+                <div class="product-sku">Propietario</div>
+              </div>
+            </div>
+          </td>
+          <td>francisco@stock.cl</td>
+          <td><span class="badge blue">Administrador</span></td>
+          <td>Hoy 11:30</td>
+          <td><span class="badge green">Activo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action blue" title="Permisos">🔑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="user-cell">
+              <div class="user-avatar green">M</div>
+              <div>
+                <div class="product-name">María González</div>
+                <div class="product-sku">Empleada</div>
+              </div>
+            </div>
+          </td>
+          <td>maria@stock.cl</td>
+          <td><span class="badge amber">Vendedor</span></td>
+          <td>Hoy 10:15</td>
+          <td><span class="badge green">Activo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action blue" title="Permisos">🔑</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="user-cell">
+              <div class="user-avatar amber">C</div>
+              <div>
+                <div class="product-name">Carlos Muñoz</div>
+                <div class="product-sku">Empleado</div>
+              </div>
+            </div>
+          </td>
+          <td>carlos@stock.cl</td>
+          <td><span class="badge green">Supervisor</span></td>
+          <td>Ayer 17:00</td>
+          <td><span class="badge red">Inactivo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action blue" title="Permisos">🔑</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`,
   };
 
   mainBody.innerHTML = contenidos[seccion] || '';
