@@ -424,7 +424,116 @@ function cambiarSeccion(seccion) {
       </tbody>
     </table>
   </div>`,
-    alertas: `<div style="padding:1rem;color:var(--muted)">Módulo Alertas — próximamente</div>`,
+    alertas: `
+  <!-- Resumen de alertas -->
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <div class="stat-card-icon red">🚨</div>
+      <div class="stat-card-info">
+        <div class="stat-card-num">1</div>
+        <div class="stat-card-label">Stock crítico</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-icon amber">⚠️</div>
+      <div class="stat-card-info">
+        <div class="stat-card-num">2</div>
+        <div class="stat-card-label">Stock bajo</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-icon green">✅</div>
+      <div class="stat-card-info">
+        <div class="stat-card-num">98</div>
+        <div class="stat-card-label">Productos ok</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-card-icon blue">📦</div>
+      <div class="stat-card-info">
+        <div class="stat-card-num">124</div>
+        <div class="stat-card-label">Total productos</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tabla de alertas -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <div class="section-card-title">🚨 Productos que requieren atención</div>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Stock actual</th>
+          <th>Stock mínimo</th>
+          <th>Diferencia</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="product-name">Lija 120 (unidad)</div>
+            <div class="product-sku">SKU: LIJA-003</div>
+          </td>
+          <td>Materiales</td>
+          <td><strong style="color:var(--red)">2</strong></td>
+          <td>10</td>
+          <td><span class="badge red">-8</span></td>
+          <td><span class="badge red">Crítico</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action green" title="Registrar entrada">📥</button>
+              <button class="btn-action blue" title="Ver producto">👁</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">Tornillos 1/2" (caja)</div>
+            <div class="product-sku">SKU: TORN-002</div>
+          </td>
+          <td>Ferretería</td>
+          <td><strong style="color:var(--amber)">8</strong></td>
+          <td>15</td>
+          <td><span class="badge amber">-7</span></td>
+          <td><span class="badge amber">Bajo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action green" title="Registrar entrada">📥</button>
+              <button class="btn-action blue" title="Ver producto">👁</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">Guantes de trabajo L</div>
+            <div class="product-sku">SKU: GUAN-015</div>
+          </td>
+          <td>Seguridad</td>
+          <td><strong style="color:var(--amber)">8</strong></td>
+          <td>10</td>
+          <td><span class="badge amber">-2</span></td>
+          <td><span class="badge amber">Bajo</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action green" title="Registrar entrada">📥</button>
+              <button class="btn-action blue" title="Ver producto">👁</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`,
     categorias: `<div style="padding:1rem;color:var(--muted)">Módulo Categorías — próximamente</div>`,
     proveedores: `<div style="padding:1rem;color:var(--muted)">Módulo Proveedores — próximamente</div>`,
     reportes: `<div style="padding:1rem;color:var(--muted)">Módulo Reportes — próximamente</div>`,
