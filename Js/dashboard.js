@@ -534,7 +534,119 @@ function cambiarSeccion(seccion) {
       </tbody>
     </table>
   </div>`,
-    categorias: `<div style="padding:1rem;color:var(--muted)">Módulo Categorías — próximamente</div>`,
+    categorias: `
+  <!-- Barra de acciones -->
+  <div class="module-toolbar">
+    <div class="toolbar-search">
+      <span class="toolbar-search-icon">🔍</span>
+      <input type="text" class="toolbar-search-input" placeholder="Buscar categoría...">
+    </div>
+  </div>
+
+  <!-- Tabla de categorías -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <div class="section-card-title">Lista de categorías</div>
+      <span class="badge blue">6 categorías</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Descripción</th>
+          <th>Productos</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="product-name">🔧 Herramientas</div>
+          </td>
+          <td>Martillos, destornilladores, llaves y más</td>
+          <td>32</td>
+          <td><span class="badge green">Activa</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">🪛 Ferretería</div>
+          </td>
+          <td>Tornillos, tuercas, pernos y accesorios</td>
+          <td>45</td>
+          <td><span class="badge green">Activa</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">🎨 Materiales</div>
+          </td>
+          <td>Pinturas, lijas, selladores y más</td>
+          <td>28</td>
+          <td><span class="badge green">Activa</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">🧤 Seguridad</div>
+          </td>
+          <td>Guantes, cascos, lentes de protección</td>
+          <td>15</td>
+          <td><span class="badge green">Activa</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">💡 Electricidad</div>
+          </td>
+          <td>Cables, enchufes, interruptores</td>
+          <td>19</td>
+          <td><span class="badge green">Activa</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-name">🚿 Gasfitería</div>
+          </td>
+          <td>Cañerías, llaves de paso, accesorios</td>
+          <td>0</td>
+          <td><span class="badge red">Vacía</span></td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-action amber" title="Editar">✏️</button>
+              <button class="btn-action red" title="Eliminar">🗑</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`,
     proveedores: `<div style="padding:1rem;color:var(--muted)">Módulo Proveedores — próximamente</div>`,
     reportes: `<div style="padding:1rem;color:var(--muted)">Módulo Reportes — próximamente</div>`,
     usuarios: `<div style="padding:1rem;color:var(--muted)">Módulo Usuarios — próximamente</div>`
