@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AppNova Stock — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <!-- ============================================================
+    DASHBOARD — panel principal de la app
+    Estructura de 2 columnas:
+    - Izquierda: sidebar de navegación (fijo)
+    - Derecha: contenido principal que cambia según módulo
+    CSS necesario: layout sidebar + contenido principal
+    JS necesario: cambiar sección activa al hacer clic en sidebar
+    BD necesario: cargar datos reales según usuario y rol
+  ============================================================ -->
+
+  <div class="app-wrapper">
+
+    <!-- ══════════════════════════════════════════
+      SIDEBAR — navegación lateral fija
+      Contiene: logo, menú de módulos y perfil de usuario
+      Visible siempre, no hace scroll con el contenido
+    ══════════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+
+      <!-- Logo -->
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">
+          <svg viewBox="0 0 28 28" fill="none" width="18" height="18">
+            <rect x="6" y="2" width="16" height="24" rx="3" fill="white" opacity="0.9"/>
+            <rect x="9" y="5" width="10" height="14" rx="1.5" fill="#3b82f6"/>
+            <circle cx="14" cy="22" r="1.5" fill="#3b82f6"/>
+            <path d="M10.5 11.5L13 14L17.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">AppNova Stock</span>
+          <span class="sidebar-logo-tag">by AppNova Solutions</span>
+        </div>
+      </div>
+
+      <!-- Separador -->
+      <div class="sidebar-divider"></div>
+
+      <!-- Menú de navegación -->
+      <!--
+        JS necesario: al hacer clic agrega clase "active" al item
+        y muestra la sección correspondiente en el contenido principal
+        BD/Roles: algunos items se mostrarán u ocultarán según el rol
+        Vendedor: solo ve Productos y Movimientos
+        Supervisor: ve todo excepto Usuarios
+        Admin: ve todo
+      -->
+      <nav class="sidebar-nav">
+
+        <div class="sidebar-nav-label">Principal</div>
+
+        <a href="#" class="sidebar-item active" data-section="dashboard">
+          <span class="sidebar-item-icon">📊</span>
+          <span class="sidebar-item-text">Dashboard</span>
+        </a>
+
+        <a href="#" class="sidebar-item" data-section="productos">
+          <span class="sidebar-item-icon">📦</span>
+          <span class="sidebar-item-text">Productos</span>
+        </a>
+
+        <a href="#" class="sidebar-item" data-section="movimientos">
+          <span class="sidebar-item-icon">🔄</span>
+          <span class="sidebar-item-text">Movimientos</span>
+        </a>
+
+        <a href="#" class="sidebar-item" data-section="alertas">
+          <span class="sidebar-item-icon">🚨</span>
+          <span class="sidebar-item-text">Alertas de stock</span>
+          <!--
+            JS necesario: mostrar badge con número de alertas activas
+            BD necesario: contar productos bajo stock mínimo
+          -->
+          <span class="sidebar-badge" id="alertaBadge">3</span>
+        </a>
+
+        <div class="sidebar-nav-label">Gestión</div>
+
+        <a href="#" class="sidebar-item" data-section="categorias">
+          <span class="sidebar-item-icon">🏷️</span>
+          <span class="sidebar-item-text">Categorías</span>
+        </a>
+
+        <a href="#" class="sidebar-item" data-section="proveedores">
+          <span class="sidebar-item-icon">🏭</span>
+          <span class="sidebar-item-text">Proveedores</span>
+        </a>
+
+        <a href="#" class="sidebar-item" data-section="reportes">
+          <span class="sidebar-item-icon">📈</span>
+          <span class="sidebar-item-text">Reportes</span>
+        </a>
+
+        <!--
+          Solo visible para Admin y SuperAdmin
+          BD/Roles: se oculta con JS según rol del usuario logueado
+        -->
+        <div class="sidebar-nav-label">Administración</div>
+
+        <a href="#" class="sidebar-item sidebar-item-admin" data-section="usuarios">
+          <span class="sidebar-item-icon">👥</span>
+          <span class="sidebar-item-text">Usuarios</span>
+        </a>
+
+      </nav>
+
+      <!-- Perfil del usuario logueado -->
+      <!--
+        BD necesario: cargar nombre, email y rol del usuario activo
+        JS necesario: menú desplegable al hacer clic
+      -->
+      <div class="sidebar-profile">
+        <div class="sidebar-profile-avatar">F</div>
+        <div class="sidebar-profile-info">
+          <div class="sidebar-profile-name">Francisco Silva</div>
+          <div class="sidebar-profile-role">Administrador</div>
+        </div>
+        <a href="index.html" class="sidebar-logout" title="Cerrar sesión">⏻</a>
+      </div>
+
+    </aside>
+    <!-- FIN SIDEBAR -->
+
+
+    <!-- ══════════════════════════════════════════
+      CONTENIDO PRINCIPAL — cambia según módulo activo
+    ══════════════════════════════════════════ -->
+    <main class="main-content">
+
+      <!-- Header superior -->
+      <!--
+        JS necesario: actualizar título según sección activa
+        BD necesario: mostrar fecha y hora actual
+      -->
+      <header class="main-header">
+        <div class="main-header-left">
+          <h1 class="main-header-title" id="pageTitle">Dashboard</h1>
+          <p class="main-header-sub" id="pageSubtitle">Resumen general del inventario</p>
+        </div>
+        <div class="main-header-right">
+          <div class="main-header-date" id="currentDate"></div>
+          <!--
+            Botón de acción principal — cambia según sección
+            Ej: en Productos dice "Agregar producto"
+            JS necesario: cambiar texto y acción según sección activa
+          -->
+          <button class="btn-primary" id="btnAccion">+ Agregar producto</button>
+        </div>
+      </header>
+
+      <!-- Aquí irá el contenido de cada sección -->
+      <!-- En el próximo paso agregamos el contenido del Dashboard -->
+      <div class="main-body" id="mainBody">
+
+      </div>
+
+    </main>
+    <!-- FIN CONTENIDO PRINCIPAL -->
+
+  </div>
+  <!-- FIN app-wrapper -->
+
+  <script src="js/main.js"></script>
+</body>
+</html>
