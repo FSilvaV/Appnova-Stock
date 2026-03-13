@@ -17,10 +17,11 @@ app.use(cors());
 app.use(express.json());
 
 // ── RUTAS ──
-// Cada archivo de rutas maneja un módulo distinto
-// /api/productos → routes/productos.js
 const productosRoutes = require('./routes/productos');
 app.use('/api/productos', productosRoutes);
+
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
 
 // ── RUTA DE PRUEBA ──
 app.get('/', (req, res) => {
