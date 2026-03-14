@@ -129,7 +129,7 @@ async function cargarResumenDashboard() {
           <div class="action-btns">
             <button class="btn-action blue" title="Ver detalle">👁</button>
             <button class="btn-action amber" title="Editar">✏️</button>
-            <button class="btn-action red" title="Eliminar" onclick="eliminarProducto(${p.id})">🗑</button>
+            <button class="btn-action red" title="Eliminar" data-id="${p.id}" class="btn-eliminar">🗑</button>
           </div>
         </td>
       </tr>
@@ -146,6 +146,68 @@ async function cargarResumenDashboard() {
   }
 }
 
+async function cargarProductos() {
+  try {
+    const response = await fetch('http://localhost:3000/api/productos');
+    const productos = await response.json();
+
+    const filas = productos.map(p => `
+      <tr>
+        <td><div class="product-img-placeholder">📦</div></td>
+        <td>
+          <div class="product-name">${p.nombre}</div>
+          <div class="product-sku">SKU: ${p.sku || 'Sin SKU'}</div>
+        </td>
+        <td>${p.categoria_id || '—'}</td>
+        <td>$${Number(p.precio).toLocaleString('es-CL')}</td>
+        <td>${p.stock}</td>
+        <td>${p.stock_minimo}</td>
+        <td>
+          <span class="badge ${p.stock < p.stock_minimo ? 'red' : 'green'}">
+            ${p.stock < p.stock_minimo ? 'Bajo' : 'Ok'}
+          </span>
+        </td>
+        <td>
+          <div class="action-btns">
+            <button class="btn-action blue" title="Ver detalle">👁</button>
+            <button class="btn-action amber" title="Editar">✏️</button>
+            <button class="btn-action red btn-eliminar" title="Eliminar" data-id="${p.id}">🗑</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    document.querySelector('.data-table tbody').innerHTML = filas;
+    document.querySelector('.section-card .badge.blue').textContent = `${productos.length} productos`;
+
+    // Agrega evento a cada botón de eliminar
+    document.querySelectorAll('.btn-eliminar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        eliminarProducto(btn.getAttribute('data-id'));
+      });
+    });
+
+  } catch (error) {
+    console.error('Error cargando productos:', error);
+  }
+}
+
+
+async function eliminarProducto(id) {
+  if (!confirm('¿Estás seguro de eliminar este producto?')) return;
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/productos/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (response.ok) {
+      cambiarSeccion('productos');
+    }
+  } catch (error) {
+    console.error('Error eliminando producto:', error);
+  }
+}
 
 // ============================================================
 // ELIMINAR PRODUCTO
@@ -160,7 +222,7 @@ async function eliminarProducto(id) {
     });
 
     if (response.ok) {
-      cargarProductos(); // recarga la tabla después de eliminar
+  cambiarSeccion('productos'); // recarga toda la sección incluyendo la tabla
     }
   } catch (error) {
     console.error('Error eliminando producto:', error);
