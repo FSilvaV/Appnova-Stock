@@ -23,6 +23,9 @@ app.use('/api/productos', productosRoutes);
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
+const categoriasRoutes = require('./routes/categorias');
+app.use('/api/categorias', categoriasRoutes);
+
 // ── RUTA DE PRUEBA ──
 app.get('/', (req, res) => {
   res.json({ 

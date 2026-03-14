@@ -79,6 +79,7 @@ const btnAccion = document.getElementById('btnAccion');
 btnAccion.addEventListener('click', () => {
   const seccionActual = document.querySelector('.sidebar-item.active').getAttribute('data-section');
   if (seccionActual === 'productos') abrirModalProducto();
+  if (seccionActual === 'categorias') abrirModalCategoria();
 });
 const mainBody = document.getElementById('mainBody');
 
@@ -346,6 +347,130 @@ async function eliminarProducto(id) {
     console.error('Error eliminando producto:', error);
   }
 } 
+
+// ============================================================
+// CARGAR CATEGORÍAS DESDE LA API
+// ============================================================
+
+async function cargarCategorias() {
+  try {
+    const response = await fetch('http://localhost:3000/api/categorias');
+    const categorias = await response.json();
+
+    const filas = categorias.map(c => `
+      <tr>
+        <td><div class="product-name">${c.nombre}</div></td>
+        <td>${c.descripcion || '—'}</td>
+        <td>${c.total_productos}</td>
+        <td><span class="badge ${c.activa ? 'green' : 'red'}">${c.activa ? 'Activa' : 'Inactiva'}</span></td>
+        <td>
+          <div class="action-btns">
+            <button class="btn-action amber btn-editar-cat" title="Editar" data-id="${c.id}" data-nombre="${c.nombre}" data-desc="${c.descripcion || ''}">✏️</button>
+            <button class="btn-action red btn-eliminar-cat" title="Eliminar" data-id="${c.id}">🗑</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    document.querySelector('.data-table tbody').innerHTML = filas;
+    document.querySelector('.section-card .badge.blue').textContent = `${categorias.length} categorías`;
+
+    document.querySelectorAll('.btn-eliminar-cat').forEach(btn => {
+      btn.addEventListener('click', () => eliminarCategoria(btn.getAttribute('data-id')));
+    });
+
+    document.querySelectorAll('.btn-editar-cat').forEach(btn => {
+      btn.addEventListener('click', () => {
+        editarCategoria(btn.getAttribute('data-id'), btn.getAttribute('data-nombre'), btn.getAttribute('data-desc'));
+      });
+    });
+
+  } catch (error) {
+    console.error('Error cargando categorías:', error);
+  }
+}
+
+async function eliminarCategoria(id) {
+  if (!confirm('¿Eliminar esta categoría?')) return;
+  try {
+    await fetch(`http://localhost:3000/api/categorias/${id}`, { method: 'DELETE' });
+    cambiarSeccion('categorias');
+  } catch (error) {
+    console.error('Error eliminando categoría:', error);
+  }
+}
+
+function abrirModalCategoria(id = null, nombre = '', descripcion = '') {
+  const esEditar = id !== null;
+  const modal = document.createElement('div');
+  modal.id = 'modalCategoria';
+  modal.className = 'modal-overlay open';
+  modal.innerHTML = `
+    <div class="modal">
+      <div class="modal-logo">
+        <div class="modal-logo-icon">🏷️</div>
+        <div>
+          <div class="modal-logo-text">${esEditar ? 'Editar' : 'Agregar'} categoría</div>
+        </div>
+        <button class="modal-close" onclick="cerrarModalCategoria()">✕</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nombre</label>
+        <input class="form-input" type="text" id="cat-nombre" value="${nombre}" placeholder="Ej: Herramientas">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Descripción</label>
+        <input class="form-input" type="text" id="cat-desc" value="${descripcion}" placeholder="Descripción opcional">
+      </div>
+      <button class="btn-modal-submit" onclick="guardarCategoria(${id})">
+        ${esEditar ? 'Guardar cambios →' : 'Agregar categoría →'}
+      </button>
+      <div class="login-error" id="cat-error"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) cerrarModalCategoria(); });
+}
+
+function editarCategoria(id, nombre, descripcion) {
+  abrirModalCategoria(id, nombre, descripcion);
+}
+
+function cerrarModalCategoria() {
+  const modal = document.getElementById('modalCategoria');
+  if (modal) modal.remove();
+}
+
+async function guardarCategoria(id) {
+  const nombre = document.getElementById('cat-nombre').value.trim();
+  const descripcion = document.getElementById('cat-desc').value.trim();
+  const error = document.getElementById('cat-error');
+
+  if (!nombre) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ El nombre es requerido.';
+    return;
+  }
+
+  try {
+    const url = id ? `http://localhost:3000/api/categorias/${id}` : 'http://localhost:3000/api/categorias';
+    const method = id ? 'PUT' : 'POST';
+
+    const response = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, descripcion })
+    });
+
+    if (response.ok) {
+      cerrarModalCategoria();
+      cambiarSeccion('categorias');
+    }
+  } catch (err) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Error conectando con el servidor.';
+  }
+}
 
 // ============================================================
 // MODAL AGREGAR PRODUCTO
@@ -1312,6 +1437,7 @@ function cambiarSeccion(seccion) {
   // Carga datos reales según la sección activa
 if (seccion === 'dashboard') cargarResumenDashboard();
 if (seccion === 'productos') cargarProductos();
+if (seccion === 'categorias') cargarCategorias();
 }
 
 // Agrega evento click a cada item del sidebar
