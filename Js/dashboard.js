@@ -835,6 +835,41 @@ async function guardarCategoria(id) {
 }
 
 // ============================================================
+// CARGAR REPORTES DESDE LA API
+// Solo lectura — muestra resumen y opciones de exportar
+// ============================================================
+
+async function cargarReportes() {
+  try {
+    const [prodResponse, movResponse] = await Promise.all([
+      fetch('http://localhost:3000/api/productos'),
+      fetch('http://localhost:3000/api/movimientos')
+    ]);
+
+    const productos = await prodResponse.json();
+    const movimientos = await movResponse.json();
+
+    // Calcula totales
+    const totalProductos = productos.length;
+    const valorInventario = productos.reduce((acc, p) => acc + (p.precio * p.stock), 0);
+    const entradas = movimientos.filter(m => m.tipo === 'entrada').length;
+    const salidas = movimientos.filter(m => m.tipo === 'salida').length;
+
+    // Actualiza tarjetas
+    const tarjetas = document.querySelectorAll('.stat-card-num');
+    if (tarjetas.length >= 4) {
+      tarjetas[0].textContent = entradas;
+      tarjetas[1].textContent = salidas;
+      tarjetas[2].textContent = `$${Math.round(valorInventario).toLocaleString('es-CL')}`;
+      tarjetas[3].textContent = movimientos.length;
+    }
+
+  } catch (error) {
+    console.error('Error cargando reportes:', error);
+  }
+}
+
+// ============================================================
 // MODAL AGREGAR PRODUCTO
 // Se abre al hacer clic en "+ Agregar producto"
 // ============================================================
@@ -1803,6 +1838,7 @@ if (seccion === 'categorias') cargarCategorias();
 if (seccion === 'proveedores') cargarProveedores();
 if (seccion === 'movimientos') cargarMovimientos();
 if (seccion === 'alertas') cargarAlertas();
+if (seccion === 'reportes') cargarReportes();
 }
 
 // Agrega evento click a cada item del sidebar
