@@ -78,6 +78,96 @@ const pageSubtitle = document.getElementById('pageSubtitle');
 const btnAccion = document.getElementById('btnAccion');
 const mainBody = document.getElementById('mainBody');
 
+
+// ============================================================
+// CARGAR DATOS REALES DEL DASHBOARD DESDE LA API
+// Consulta los endpoints del backend y actualiza las tarjetas
+// ============================================================
+
+async function cargarResumenDashboard() {
+  try {
+    // Obtiene todos los productos desde la API
+    const response = await fetch('http://localhost:3000/api/productos');
+    const productos = await response.json();
+
+    // Calcula los totales desde los datos reales
+    const total = productos.length;
+    const stockOk = productos.filter(p => p.stock >= p.stock_minimo).length;
+    const alertas = productos.filter(p => p.stock < p.stock_minimo).length;
+
+    // Actualiza las tarjetas con los números reales
+    // Busca los elementos por su contenido y los actualiza
+    const tarjetas = document.querySelectorAll('.stat-card-num');
+    if (tarjetas.length >= 3) {
+      tarjetas[0].textContent = total;    // Total productos
+      tarjetas[1].textContent = stockOk;  // Stock ok
+      tarjetas[2].textContent = alertas;  // Alertas
+    }
+
+    // Actualiza el badge de alertas en el sidebar
+    const badge = document.getElementById('alertaBadge');
+    if (badge) badge.textContent = alertas;
+
+    // Construye las filas de la tabla dinámicamente
+    const filas = productos.map(p => `
+      <tr>
+        <td><div class="product-img-placeholder">📦</div></td>
+        <td>
+          <div class="product-name">${p.nombre}</div>
+          <div class="product-sku">SKU: ${p.sku || 'Sin SKU'}</div>
+        </td>
+        <td>${p.categoria_id || '—'}</td>
+        <td>$${Number(p.precio).toLocaleString('es-CL')}</td>
+        <td>${p.stock}</td>
+        <td>${p.stock_minimo}</td>
+        <td>
+          <span class="badge ${p.stock < p.stock_minimo ? 'red' : 'green'}">
+            ${p.stock < p.stock_minimo ? 'Bajo' : 'Ok'}
+          </span>
+        </td>
+        <td>
+          <div class="action-btns">
+            <button class="btn-action blue" title="Ver detalle">👁</button>
+            <button class="btn-action amber" title="Editar">✏️</button>
+            <button class="btn-action red" title="Eliminar" onclick="eliminarProducto(${p.id})">🗑</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    // Inserta las filas en la tabla
+    document.querySelector('.data-table tbody').innerHTML = filas;
+
+    // Actualiza el badge con el total real
+    document.querySelector('.section-card .badge.blue').textContent = `${productos.length} productos`;
+
+  } catch (error) {
+    console.error('Error cargando productos:', error);
+  }
+}
+
+
+// ============================================================
+// ELIMINAR PRODUCTO
+// ============================================================
+
+async function eliminarProducto(id) {
+  if (!confirm('¿Estás seguro de eliminar este producto?')) return;
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/productos/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (response.ok) {
+      cargarProductos(); // recarga la tabla después de eliminar
+    }
+  } catch (error) {
+    console.error('Error eliminando producto:', error);
+  }
+} 
+
+
 // Función que cambia la sección activa
 function cambiarSeccion(seccion) {
   const config = secciones[seccion];
@@ -939,6 +1029,10 @@ function cambiarSeccion(seccion) {
   };
 
   mainBody.innerHTML = contenidos[seccion] || '';
+
+  // Carga datos reales según la sección activa
+if (seccion === 'dashboard') cargarResumenDashboard();
+if (seccion === 'productos') cargarProductos();
 }
 
 // Agrega evento click a cada item del sidebar
@@ -956,3 +1050,4 @@ document.querySelectorAll('.sidebar-item').forEach(item => {
 // ============================================================
 
 cambiarSeccion('dashboard');
+cargarResumenDashboard();
