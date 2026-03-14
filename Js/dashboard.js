@@ -82,6 +82,7 @@ btnAccion.addEventListener('click', () => {
   if (seccionActual === 'categorias') abrirModalCategoria();
   if (seccionActual === 'proveedores') abrirModalProveedor();
   if (seccionActual === 'movimientos') abrirModalMovimiento();
+  if (seccionActual === 'usuarios') abrirModalUsuario();
 });
 const mainBody = document.getElementById('mainBody');
 
@@ -759,6 +760,240 @@ async function eliminarCategoria(id) {
     cambiarSeccion('categorias');
   } catch (error) {
     console.error('Error eliminando categoría:', error);
+  }
+}
+
+// ============================================================
+// CARGAR USUARIOS DESDE LA API
+// ============================================================
+
+async function cargarUsuarios() {
+  try {
+    const response = await fetch('http://localhost:3000/api/usuarios');
+    const usuarios = await response.json();
+
+    const filas = usuarios.map(u => `
+      <tr>
+        <td>
+          <div class="user-cell">
+            <div class="user-avatar blue">${u.nombre.charAt(0).toUpperCase()}</div>
+            <div>
+              <div class="product-name">${u.nombre}</div>
+              <div class="product-sku">${u.email}</div>
+            </div>
+          </div>
+        </td>
+        <td>${u.email}</td>
+        <td><span class="badge ${u.rol === 'admin' ? 'blue' : u.rol === 'supervisor' ? 'green' : 'amber'}">${u.rol}</span></td>
+        <td>${u.ultimo_acceso ? new Date(u.ultimo_acceso).toLocaleString('es-CL') : 'Nunca'}</td>
+        <td><span class="badge ${u.activo ? 'green' : 'red'}">${u.activo ? 'Activo' : 'Inactivo'}</span></td>
+        <td>
+          <td>
+          <div class="action-btns">
+            <button class="btn-action blue btn-permisos-usr" title="Permisos" data-id="${u.id}" data-nombre="${u.nombre}">🔑</button>
+            <button class="btn-action amber btn-editar-usr" title="Editar" data-id="${u.id}" data-nombre="${u.nombre}" data-email="${u.email}" data-rol="${u.rol}" data-activo="${u.activo}">✏️</button>
+            <button class="btn-action red btn-eliminar-usr" title="Eliminar" data-id="${u.id}">🗑</button>
+          </div>
+          </td>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    document.querySelector('.data-table tbody').innerHTML = filas;
+    document.querySelector('.section-card .badge.blue').textContent = `${usuarios.length} usuarios`;
+
+    document.querySelectorAll('.btn-eliminar-usr').forEach(btn => {
+      btn.addEventListener('click', () => eliminarUsuario(btn.getAttribute('data-id')));
+    });
+
+    document.querySelectorAll('.btn-editar-usr').forEach(btn => {
+      btn.addEventListener('click', () => {
+        abrirModalUsuario(
+          btn.getAttribute('data-id'),
+          btn.getAttribute('data-nombre'),
+          btn.getAttribute('data-email'),
+          btn.getAttribute('data-rol'),
+          btn.getAttribute('data-activo') === 'true'
+        );
+      });
+    });
+
+   document.querySelectorAll('.btn-permisos-usr').forEach(btn => {
+    btn.addEventListener('click', () => {
+    abrirModalPermisos(btn.getAttribute('data-id'), btn.getAttribute('data-nombre'));
+  });
+});
+
+  } catch (error) {
+    console.error('Error cargando usuarios:', error);
+  }
+}
+
+async function eliminarUsuario(id) {
+  if (!confirm('¿Eliminar este usuario?')) return;
+  try {
+    await fetch(`http://localhost:3000/api/usuarios/${id}`, { method: 'DELETE' });
+    cambiarSeccion('usuarios');
+  } catch (error) {
+    console.error('Error eliminando usuario:', error);
+  }
+}
+
+function abrirModalPermisos(id, nombre) {
+  const modulos = [
+    { key: 'productos', label: '📦 Productos' },
+    { key: 'movimientos', label: '🔄 Movimientos' },
+    { key: 'alertas', label: '🚨 Alertas de stock' },
+    { key: 'categorias', label: '🏷️ Categorías' },
+    { key: 'proveedores', label: '🏭 Proveedores' },
+    { key: 'reportes', label: '📊 Reportes' },
+    { key: 'usuarios', label: '👥 Usuarios' },
+  ];
+
+  const modal = document.createElement('div');
+  modal.id = 'modalPermisos';
+  modal.className = 'modal-overlay open';
+  modal.innerHTML = `
+    <div class="modal">
+      <div class="modal-logo">
+        <div class="modal-logo-icon">🔑</div>
+        <div>
+          <div class="modal-logo-text">Permisos de ${nombre}</div>
+          <div class="modal-logo-sub">Activa o desactiva módulos</div>
+        </div>
+        <button class="modal-close" onclick="cerrarModalPermisos()">✕</button>
+      </div>
+
+      <div class="permisos-list">
+        ${modulos.map(m => `
+          <div class="permiso-item">
+            <span class="permiso-label">${m.label}</span>
+            <label class="toggle">
+              <input type="checkbox" checked data-modulo="${m.key}">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        `).join('')}
+      </div>
+
+      <button class="btn-modal-submit" onclick="cerrarModalPermisos()">Guardar permisos →</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) cerrarModalPermisos(); });
+}
+
+function cerrarModalPermisos() {
+  const modal = document.getElementById('modalPermisos');
+  if (modal) modal.remove();
+}
+
+function abrirModalUsuario(id = null, nombre = '', email = '', rol = 'vendedor', activo = true) {
+  const esEditar = id !== null;
+  const modal = document.createElement('div');
+  modal.id = 'modalUsuario';
+  modal.className = 'modal-overlay open';
+  modal.innerHTML = `
+    <div class="modal">
+      <div class="modal-logo">
+        <div class="modal-logo-icon">👤</div>
+        <div>
+          <div class="modal-logo-text">${esEditar ? 'Editar' : 'Agregar'} usuario</div>
+        </div>
+        <button class="modal-close" onclick="cerrarModalUsuario()">✕</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nombre completo</label>
+        <input class="form-input" type="text" id="usr-nombre" value="${nombre}" placeholder="Ej: Juan Pérez">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="usr-email" value="${email}" placeholder="usuario@empresa.cl">
+      </div>
+      ${!esEditar ? `
+      <div class="form-group">
+        <label class="form-label">Contraseña</label>
+        <input class="form-input" type="password" id="usr-password" placeholder="••••••••">
+      </div>` : ''}
+      <div class="form-group">
+        <label class="form-label">Rol</label>
+        <select class="form-input" id="usr-rol">
+          <option value="vendedor" ${rol === 'vendedor' ? 'selected' : ''}>Vendedor</option>
+          <option value="supervisor" ${rol === 'supervisor' ? 'selected' : ''}>Supervisor</option>
+          <option value="admin" ${rol === 'admin' ? 'selected' : ''}>Administrador</option>
+        </select>
+      </div>
+      ${esEditar ? `
+      <div class="form-group">
+        <label class="form-label">Estado</label>
+        <select class="form-input" id="usr-activo">
+          <option value="true" ${activo ? 'selected' : ''}>Activo</option>
+          <option value="false" ${!activo ? 'selected' : ''}>Inactivo</option>
+        </select>
+      </div>` : ''}
+      <button class="btn-modal-submit" onclick="guardarUsuario(${id})">
+        ${esEditar ? 'Guardar cambios →' : 'Agregar usuario →'}
+      </button>
+      <div class="login-error" id="usr-error"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) cerrarModalUsuario(); });
+}
+
+function cerrarModalUsuario() {
+  const modal = document.getElementById('modalUsuario');
+  if (modal) modal.remove();
+}
+
+async function guardarUsuario(id) {
+  const nombre = document.getElementById('usr-nombre').value.trim();
+  const email = document.getElementById('usr-email').value.trim();
+  const rol = document.getElementById('usr-rol').value;
+  const error = document.getElementById('usr-error');
+  const activoEl = document.getElementById('usr-activo');
+  const activo = activoEl ? activoEl.value === 'true' : true;
+
+  if (!nombre || !email) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Nombre y email son requeridos.';
+    return;
+  }
+
+  const body = { nombre, email, rol, activo };
+
+  if (!id) {
+    const password = document.getElementById('usr-password').value;
+    if (!password) {
+      error.style.display = 'block';
+      error.textContent = '⚠️ La contraseña es requerida.';
+      return;
+    }
+    body.password = password;
+  }
+
+  try {
+    const url = id ? `http://localhost:3000/api/usuarios/${id}` : 'http://localhost:3000/api/usuarios';
+    const method = id ? 'PUT' : 'POST';
+
+    const response = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+
+    if (response.ok) {
+      cerrarModalUsuario();
+      cambiarSeccion('usuarios');
+    } else {
+      const data = await response.json();
+      error.style.display = 'block';
+      error.textContent = '⚠️ ' + data.error;
+    }
+  } catch (err) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Error conectando con el servidor.';
   }
 }
 
@@ -1839,6 +2074,7 @@ if (seccion === 'proveedores') cargarProveedores();
 if (seccion === 'movimientos') cargarMovimientos();
 if (seccion === 'alertas') cargarAlertas();
 if (seccion === 'reportes') cargarReportes();
+if (seccion === 'usuarios') cargarUsuarios();
 }
 
 // Agrega evento click a cada item del sidebar
