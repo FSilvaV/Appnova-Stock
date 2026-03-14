@@ -82,6 +82,112 @@ btnAccion.addEventListener('click', () => {
 });
 const mainBody = document.getElementById('mainBody');
 
+// ============================================================
+// EDITAR PRODUCTO — abre modal con datos precargados
+// ============================================================
+
+async function editarProducto(id) {
+  try {
+    // Obtiene los datos actuales del producto
+    const response = await fetch(`http://localhost:3000/api/productos/${id}`);
+    const p = await response.json();
+
+    // Crea el modal con los datos precargados
+    const modal = document.createElement('div');
+    modal.id = 'modalProducto';
+    modal.className = 'modal-overlay open';
+    modal.innerHTML = `
+      <div class="modal">
+        <div class="modal-logo">
+          <div class="modal-logo-icon">✏️</div>
+          <div>
+            <div class="modal-logo-text">Editar producto</div>
+            <div class="modal-logo-sub">Modifica los datos del producto</div>
+          </div>
+          <button class="modal-close" onclick="cerrarModalProducto()">✕</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nombre del producto</label>
+          <input class="form-input" type="text" id="prod-nombre" value="${p.nombre}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">SKU</label>
+          <input class="form-input" type="text" id="prod-sku" value="${p.sku || ''}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Precio</label>
+          <input class="form-input" type="number" id="prod-precio" value="${p.precio}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Stock actual</label>
+          <input class="form-input" type="number" id="prod-stock" value="${p.stock}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Stock mínimo</label>
+          <input class="form-input" type="number" id="prod-stock-min" value="${p.stock_minimo}">
+        </div>
+
+        <button class="btn-modal-submit" onclick="actualizarProducto(${p.id})">Guardar cambios →</button>
+
+        <div class="login-error" id="prod-error"></div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) cerrarModalProducto();
+    });
+
+  } catch (error) {
+    console.error('Error cargando producto:', error);
+  }
+}
+
+
+// ============================================================
+// ACTUALIZAR PRODUCTO — envía los cambios a la API
+// ============================================================
+
+async function actualizarProducto(id) {
+  const nombre = document.getElementById('prod-nombre').value.trim();
+  const sku = document.getElementById('prod-sku').value.trim();
+  const precio = document.getElementById('prod-precio').value;
+  const stock = document.getElementById('prod-stock').value;
+  const stock_minimo = document.getElementById('prod-stock-min').value;
+  const error = document.getElementById('prod-error');
+
+  if (!nombre || !precio || !stock) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Nombre, precio y stock son requeridos.';
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/productos/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, sku, precio, stock, stock_minimo })
+    });
+
+    if (response.ok) {
+      cerrarModalProducto();
+      cambiarSeccion('productos');
+    } else {
+      const data = await response.json();
+      error.style.display = 'block';
+      error.textContent = '⚠️ ' + data.error;
+    }
+  } catch (err) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Error conectando con el servidor.';
+  }
+}
 
 // ============================================================
 // CARGAR DATOS REALES DEL DASHBOARD DESDE LA API
@@ -174,7 +280,7 @@ async function cargarProductos() {
         <td>
           <div class="action-btns">
             <button class="btn-action blue" title="Ver detalle">👁</button>
-            <button class="btn-action amber" title="Editar">✏️</button>
+            <button class="btn-action amber btn-editar" title="Editar" data-id="${p.id}">✏️</button>
             <button class="btn-action red btn-eliminar" title="Eliminar" data-id="${p.id}">🗑</button>
           </div>
         </td>
@@ -189,7 +295,15 @@ async function cargarProductos() {
       btn.addEventListener('click', () => {
         eliminarProducto(btn.getAttribute('data-id'));
       });
+    });  // ← faltaba este punto y coma
+
+    // Agrega evento a cada botón de editar
+    document.querySelectorAll('.btn-editar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        editarProducto(btn.getAttribute('data-id'));
+      });
     });
+  
 
   } catch (error) {
     console.error('Error cargando productos:', error);
