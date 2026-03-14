@@ -76,6 +76,10 @@ const secciones = {
 const pageTitle = document.getElementById('pageTitle');
 const pageSubtitle = document.getElementById('pageSubtitle');
 const btnAccion = document.getElementById('btnAccion');
+btnAccion.addEventListener('click', () => {
+  const seccionActual = document.querySelector('.sidebar-item.active').getAttribute('data-section');
+  if (seccionActual === 'productos') abrirModalProducto();
+});
 const mainBody = document.getElementById('mainBody');
 
 
@@ -229,6 +233,105 @@ async function eliminarProducto(id) {
   }
 } 
 
+// ============================================================
+// MODAL AGREGAR PRODUCTO
+// Se abre al hacer clic en "+ Agregar producto"
+// ============================================================
+
+function abrirModalProducto() {
+  // Crea el modal dinámicamente
+  const modal = document.createElement('div');
+  modal.id = 'modalProducto';
+  modal.className = 'modal-overlay open';
+  modal.innerHTML = `
+    <div class="modal">
+      <div class="modal-logo">
+        <div class="modal-logo-icon">📦</div>
+        <div>
+          <div class="modal-logo-text">Agregar producto</div>
+          <div class="modal-logo-sub">Complete los datos del producto</div>
+        </div>
+        <button class="modal-close" onclick="cerrarModalProducto()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Nombre del producto</label>
+        <input class="form-input" type="text" id="prod-nombre" placeholder="Ej: Martillo Stanley 16oz">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">SKU</label>
+        <input class="form-input" type="text" id="prod-sku" placeholder="Ej: MART-001">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Precio</label>
+        <input class="form-input" type="number" id="prod-precio" placeholder="Ej: 8990">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Stock inicial</label>
+        <input class="form-input" type="number" id="prod-stock" placeholder="Ej: 10">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Stock mínimo</label>
+        <input class="form-input" type="number" id="prod-stock-min" placeholder="Ej: 5">
+      </div>
+
+      <button class="btn-modal-submit" onclick="guardarProducto()">Guardar producto →</button>
+
+      <div class="login-error" id="prod-error"></div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  // Cierra al hacer clic fuera
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) cerrarModalProducto();
+  });
+}
+
+function cerrarModalProducto() {
+  const modal = document.getElementById('modalProducto');
+  if (modal) modal.remove();
+}
+
+async function guardarProducto() {
+  const nombre = document.getElementById('prod-nombre').value.trim();
+  const sku = document.getElementById('prod-sku').value.trim();
+  const precio = document.getElementById('prod-precio').value;
+  const stock = document.getElementById('prod-stock').value;
+  const stock_minimo = document.getElementById('prod-stock-min').value;
+  const error = document.getElementById('prod-error');
+
+  if (!nombre || !precio || !stock) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Nombre, precio y stock son requeridos.';
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:3000/api/productos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, sku, precio, stock, stock_minimo })
+    });
+
+    if (response.ok) {
+      cerrarModalProducto();
+      cambiarSeccion('productos'); // recarga la tabla
+    } else {
+      const data = await response.json();
+      error.style.display = 'block';
+      error.textContent = '⚠️ ' + data.error;
+    }
+  } catch (err) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Error conectando con el servidor.';
+  }
+}
 
 // Función que cambia la sección activa
 function cambiarSeccion(seccion) {
