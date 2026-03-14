@@ -81,8 +81,152 @@ btnAccion.addEventListener('click', () => {
   if (seccionActual === 'productos') abrirModalProducto();
   if (seccionActual === 'categorias') abrirModalCategoria();
   if (seccionActual === 'proveedores') abrirModalProveedor();
+  if (seccionActual === 'movimientos') abrirModalMovimiento();
 });
 const mainBody = document.getElementById('mainBody');
+
+// ============================================================
+// CARGAR MOVIMIENTOS DESDE LA API
+// ============================================================
+
+async function cargarMovimientos() {
+  try {
+    const response = await fetch('http://localhost:3000/api/movimientos');
+    const movimientos = await response.json();
+
+    const filas = movimientos.length > 0 ? movimientos.map(m => `
+      <tr>
+        <td>${new Date(m.creado_en).toLocaleString('es-CL')}</td>
+        <td>
+          <div class="product-name">${m.producto_nombre}</div>
+          <div class="product-sku">SKU: ${m.sku || '—'}</div>
+        </td>
+        <td><span class="badge ${m.tipo === 'entrada' ? 'green' : 'red'}">${m.tipo}</span></td>
+        <td>${m.cantidad}</td>
+        <td>${m.stock_anterior}</td>
+        <td>${m.stock_nuevo}</td>
+        <td>${m.usuario_nombre}</td>
+        <td>${m.nota || '—'}</td>
+      </tr>
+    `).join('') : `
+      <tr>
+        <td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">
+          No hay movimientos registrados aún
+        </td>
+      </tr>
+    `;
+
+    document.querySelector('.data-table tbody').innerHTML = filas;
+    document.querySelector('.section-card .badge.blue').textContent = `${movimientos.length} movimientos este mes`;
+
+  } catch (error) {
+    console.error('Error cargando movimientos:', error);
+  }
+}
+
+
+// ============================================================
+// MODAL REGISTRAR MOVIMIENTO
+// ============================================================
+
+async function abrirModalMovimiento() {
+  // Carga productos para el selector
+  const response = await fetch('http://localhost:3000/api/productos');
+  const productos = await response.json();
+
+  const opciones = productos.map(p => 
+    `<option value="${p.id}">${p.nombre} (Stock: ${p.stock})</option>`
+  ).join('');
+
+  // Obtiene usuario logueado del localStorage
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+  const modal = document.createElement('div');
+  modal.id = 'modalMovimiento';
+  modal.className = 'modal-overlay open';
+  modal.innerHTML = `
+    <div class="modal">
+      <div class="modal-logo">
+        <div class="modal-logo-icon">🔄</div>
+        <div>
+          <div class="modal-logo-text">Registrar movimiento</div>
+          <div class="modal-logo-sub">Entrada o salida de stock</div>
+        </div>
+        <button class="modal-close" onclick="cerrarModalMovimiento()">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Producto</label>
+        <select class="form-input" id="mov-producto">
+          <option value="">Selecciona un producto</option>
+          ${opciones}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Tipo</label>
+        <select class="form-input" id="mov-tipo">
+          <option value="entrada">📥 Entrada</option>
+          <option value="salida">📤 Salida</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Cantidad</label>
+        <input class="form-input" type="number" id="mov-cantidad" placeholder="Ej: 10" min="1">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Nota (opcional)</label>
+        <input class="form-input" type="text" id="mov-nota" placeholder="Ej: Compra proveedor, Venta mostrador">
+      </div>
+
+      <button class="btn-modal-submit" onclick="guardarMovimiento(${usuario.id})">Registrar movimiento →</button>
+      <div class="login-error" id="mov-error"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) cerrarModalMovimiento(); });
+}
+
+function cerrarModalMovimiento() {
+  const modal = document.getElementById('modalMovimiento');
+  if (modal) modal.remove();
+}
+
+async function guardarMovimiento(usuario_id) {
+  const producto_id = document.getElementById('mov-producto').value;
+  const tipo = document.getElementById('mov-tipo').value;
+  const cantidad = document.getElementById('mov-cantidad').value;
+  const nota = document.getElementById('mov-nota').value.trim();
+  const error = document.getElementById('mov-error');
+
+  if (!producto_id || !cantidad || cantidad < 1) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Selecciona un producto e ingresa una cantidad válida.';
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:3000/api/movimientos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ producto_id, usuario_id, tipo, cantidad, nota })
+    });
+
+    if (response.ok) {
+      cerrarModalMovimiento();
+      cambiarSeccion('movimientos');
+    } else {
+      const data = await response.json();
+      error.style.display = 'block';
+      error.textContent = '⚠️ ' + data.error;
+    }
+  } catch (err) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Error conectando con el servidor.';
+  }
+}
 
 // ============================================================
 // CARGAR PROVEEDORES DESDE LA API
@@ -1592,6 +1736,7 @@ if (seccion === 'dashboard') cargarResumenDashboard();
 if (seccion === 'productos') cargarProductos();
 if (seccion === 'categorias') cargarCategorias();
 if (seccion === 'proveedores') cargarProveedores();
+if (seccion === 'movimientos') cargarMovimientos();
 }
 
 // Agrega evento click a cada item del sidebar

@@ -29,6 +29,9 @@ app.use('/api/categorias', categoriasRoutes);
 const proveedoresRoutes = require('./routes/proveedores');
 app.use('/api/proveedores', proveedoresRoutes);
 
+const movimientosRoutes = require('./routes/movimientos');
+app.use('/api/movimientos', movimientosRoutes);
+
 // ── RUTA DE PRUEBA ──
 app.get('/', (req, res) => {
   res.json({ 
