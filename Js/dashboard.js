@@ -86,6 +86,71 @@ btnAccion.addEventListener('click', () => {
 const mainBody = document.getElementById('mainBody');
 
 // ============================================================
+// CARGAR ALERTAS DESDE LA API
+// Muestra productos con stock menor al mínimo
+// ============================================================
+
+async function cargarAlertas() {
+  try {
+    const response = await fetch('http://localhost:3000/api/productos');
+    const productos = await response.json();
+
+    // Filtra solo los productos con stock bajo
+    const alertas = productos.filter(p => p.stock < p.stock_minimo);
+
+    // Actualiza tarjetas de resumen
+    const tarjetas = document.querySelectorAll('.stat-card-num');
+    if (tarjetas.length >= 3) {
+      tarjetas[0].textContent = alertas.filter(p => p.stock === 0).length;
+      tarjetas[1].textContent = alertas.filter(p => p.stock > 0).length;
+      tarjetas[2].textContent = productos.filter(p => p.stock >= p.stock_minimo).length;
+      tarjetas[3] && (tarjetas[3].textContent = productos.length);
+    }
+
+    // Actualiza badge del sidebar
+    const badge = document.getElementById('alertaBadge');
+    if (badge) badge.textContent = alertas.length;
+
+    const filas = alertas.length > 0 ? alertas.map(p => `
+      <tr>
+        <td>
+          <div class="product-name">${p.nombre}</div>
+          <div class="product-sku">SKU: ${p.sku || '—'}</div>
+        </td>
+        <td>${p.categoria_id || '—'}</td>
+        <td><strong style="color:${p.stock === 0 ? 'var(--red)' : 'var(--amber)'}">${p.stock}</strong></td>
+        <td>${p.stock_minimo}</td>
+        <td><span class="badge ${p.stock === 0 ? 'red' : 'amber'}">${p.stock === 0 ? 'Sin stock' : 'Bajo'}</span></td>
+        <td>
+          <div class="action-btns">
+            <button class="btn-action green btn-entrada-rapida" title="Registrar entrada" data-id="${p.id}" data-nombre="${p.nombre}">📥</button>
+            <button class="btn-action blue" title="Ver producto">👁</button>
+          </div>
+        </td>
+      </tr>
+    `).join('') : `
+      <tr>
+        <td colspan="6" style="text-align:center;padding:2rem;color:var(--muted)">
+          ✅ Todos los productos tienen stock suficiente
+        </td>
+      </tr>
+    `;
+
+    document.querySelector('.data-table tbody').innerHTML = filas;
+
+    // Botón entrada rápida desde alertas
+    document.querySelectorAll('.btn-entrada-rapida').forEach(btn => {
+      btn.addEventListener('click', () => {
+        abrirModalMovimiento(btn.getAttribute('data-id'));
+      });
+    });
+
+  } catch (error) {
+    console.error('Error cargando alertas:', error);
+  }
+}
+
+// ============================================================
 // CARGAR MOVIMIENTOS DESDE LA API
 // ============================================================
 
@@ -1737,6 +1802,7 @@ if (seccion === 'productos') cargarProductos();
 if (seccion === 'categorias') cargarCategorias();
 if (seccion === 'proveedores') cargarProveedores();
 if (seccion === 'movimientos') cargarMovimientos();
+if (seccion === 'alertas') cargarAlertas();
 }
 
 // Agrega evento click a cada item del sidebar
