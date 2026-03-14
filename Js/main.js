@@ -29,7 +29,7 @@ const btnLogin = document.getElementById('btnLogin');
 const emailInput = document.getElementById('email');
 const loginError = document.getElementById('loginError');
 
-btnLogin.addEventListener('click', () => {
+btnLogin.addEventListener('click', async () => {
 
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
@@ -52,15 +52,51 @@ btnLogin.addEventListener('click', () => {
   // ── SIMULACIÓN TEMPORAL ──
   // Mientras no hay backend, simulamos roles con credenciales de prueba
   // ESTO SE REEMPLAZARÁ por una llamada real a la BD con Node.js
-  if (email === 'admin@stock.cl' && password === '1234') {
-    window.location.href = 'dashboard.html'; // redirige al dashboard (admin)
-  } else if (email === 'vendedor@stock.cl' && password === '1234') {
-    window.location.href = 'dashboard.html'; // redirige al dashboard (vendedor)
+ // ── LLAMADA REAL A LA API ──
+// Envía las credenciales al backend y espera respuesta
+try {
+  const response = await fetch('http://localhost:3000/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    // Guarda el usuario y rol en localStorage
+    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+    window.location.href = 'dashboard.html';
   } else {
-    // Credenciales incorrectas — muestra error
     loginError.style.display = 'block';
-    loginError.textContent = '⚠️ Correo o contraseña incorrectos. Intenta nuevamente.';
+    loginError.textContent = '⚠️ ' + data.error;
   }
+} catch (error) {
+  loginError.style.display = 'block';
+  loginError.textContent = '⚠️ Error conectando con el servidor.';
+}
+
+// ── LLAMADA REAL A LA API ──
+try {
+  const response = await fetch('http://localhost:3000/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+    window.location.href = 'dashboard.html';
+  } else {
+    loginError.style.display = 'block';
+    loginError.textContent = '⚠️ ' + data.error;
+  }
+} catch (error) {
+  loginError.style.display = 'block';
+  loginError.textContent = '⚠️ Error conectando con el servidor.';
+}
 
 });
 
