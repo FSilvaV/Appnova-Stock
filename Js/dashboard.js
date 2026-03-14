@@ -80,8 +80,161 @@ btnAccion.addEventListener('click', () => {
   const seccionActual = document.querySelector('.sidebar-item.active').getAttribute('data-section');
   if (seccionActual === 'productos') abrirModalProducto();
   if (seccionActual === 'categorias') abrirModalCategoria();
+  if (seccionActual === 'proveedores') abrirModalProveedor();
 });
 const mainBody = document.getElementById('mainBody');
+
+// ============================================================
+// CARGAR PROVEEDORES DESDE LA API
+// ============================================================
+
+async function cargarProveedores() {
+  try {
+    const response = await fetch('http://localhost:3000/api/proveedores');
+    const proveedores = await response.json();
+
+    const filas = proveedores.map(p => `
+      <tr>
+        <td>
+          <div class="product-name">${p.nombre}</div>
+          <div class="product-sku">RUT: ${p.rut || '—'}</div>
+        </td>
+        <td>${p.contacto || '—'}</td>
+        <td>${p.telefono || '—'}</td>
+        <td>${p.email || '—'}</td>
+        <td><span class="badge ${p.activo ? 'green' : 'red'}">${p.activo ? 'Activo' : 'Inactivo'}</span></td>
+        <td>
+          <div class="action-btns">
+            <button class="btn-action amber btn-editar-prov" title="Editar" 
+              data-id="${p.id}" 
+              data-nombre="${p.nombre}" 
+              data-rut="${p.rut || ''}"
+              data-contacto="${p.contacto || ''}"
+              data-telefono="${p.telefono || ''}"
+              data-email="${p.email || ''}">✏️</button>
+            <button class="btn-action red btn-eliminar-prov" title="Eliminar" data-id="${p.id}">🗑</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    document.querySelector('.data-table tbody').innerHTML = filas;
+    document.querySelector('.section-card .badge.blue').textContent = `${proveedores.length} proveedores`;
+
+    document.querySelectorAll('.btn-eliminar-prov').forEach(btn => {
+      btn.addEventListener('click', () => eliminarProveedor(btn.getAttribute('data-id')));
+    });
+
+    document.querySelectorAll('.btn-editar-prov').forEach(btn => {
+      btn.addEventListener('click', () => {
+        abrirModalProveedor(
+          btn.getAttribute('data-id'),
+          btn.getAttribute('data-nombre'),
+          btn.getAttribute('data-rut'),
+          btn.getAttribute('data-contacto'),
+          btn.getAttribute('data-telefono'),
+          btn.getAttribute('data-email')
+        );
+      });
+    });
+
+  } catch (error) {
+    console.error('Error cargando proveedores:', error);
+  }
+}
+
+async function eliminarProveedor(id) {
+  if (!confirm('¿Eliminar este proveedor?')) return;
+  try {
+    await fetch(`http://localhost:3000/api/proveedores/${id}`, { method: 'DELETE' });
+    cambiarSeccion('proveedores');
+  } catch (error) {
+    console.error('Error eliminando proveedor:', error);
+  }
+}
+
+function abrirModalProveedor(id = null, nombre = '', rut = '', contacto = '', telefono = '', email = '') {
+  const esEditar = id !== null;
+  const modal = document.createElement('div');
+  modal.id = 'modalProveedor';
+  modal.className = 'modal-overlay open';
+  modal.innerHTML = `
+    <div class="modal">
+      <div class="modal-logo">
+        <div class="modal-logo-icon">🏭</div>
+        <div>
+          <div class="modal-logo-text">${esEditar ? 'Editar' : 'Agregar'} proveedor</div>
+        </div>
+        <button class="modal-close" onclick="cerrarModalProveedor()">✕</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nombre</label>
+        <input class="form-input" type="text" id="prov-nombre" value="${nombre}" placeholder="Ej: Ferretería Central">
+      </div>
+      <div class="form-group">
+        <label class="form-label">RUT</label>
+        <input class="form-input" type="text" id="prov-rut" value="${rut}" placeholder="Ej: 76.123.456-7">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contacto</label>
+        <input class="form-input" type="text" id="prov-contacto" value="${contacto}" placeholder="Nombre del contacto">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Teléfono</label>
+        <input class="form-input" type="text" id="prov-telefono" value="${telefono}" placeholder="+56 9 1234 5678">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="prov-email" value="${email}" placeholder="contacto@empresa.cl">
+      </div>
+      <button class="btn-modal-submit" onclick="guardarProveedor(${id})">
+        ${esEditar ? 'Guardar cambios →' : 'Agregar proveedor →'}
+      </button>
+      <div class="login-error" id="prov-error"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) cerrarModalProveedor(); });
+}
+
+function cerrarModalProveedor() {
+  const modal = document.getElementById('modalProveedor');
+  if (modal) modal.remove();
+}
+
+async function guardarProveedor(id) {
+  const nombre = document.getElementById('prov-nombre').value.trim();
+  const rut = document.getElementById('prov-rut').value.trim();
+  const contacto = document.getElementById('prov-contacto').value.trim();
+  const telefono = document.getElementById('prov-telefono').value.trim();
+  const email = document.getElementById('prov-email').value.trim();
+  const error = document.getElementById('prov-error');
+
+  if (!nombre) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ El nombre es requerido.';
+    return;
+  }
+
+  try {
+    const url = id ? `http://localhost:3000/api/proveedores/${id}` : 'http://localhost:3000/api/proveedores';
+    const method = id ? 'PUT' : 'POST';
+
+    const response = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, rut, contacto, telefono, email })
+    });
+
+    if (response.ok) {
+      cerrarModalProveedor();
+      cambiarSeccion('proveedores');
+    }
+  } catch (err) {
+    error.style.display = 'block';
+    error.textContent = '⚠️ Error conectando con el servidor.';
+  }
+}
 
 // ============================================================
 // EDITAR PRODUCTO — abre modal con datos precargados
@@ -1438,6 +1591,7 @@ function cambiarSeccion(seccion) {
 if (seccion === 'dashboard') cargarResumenDashboard();
 if (seccion === 'productos') cargarProductos();
 if (seccion === 'categorias') cargarCategorias();
+if (seccion === 'proveedores') cargarProveedores();
 }
 
 // Agrega evento click a cada item del sidebar

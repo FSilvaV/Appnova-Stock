@@ -26,6 +26,9 @@ app.use('/api/auth', authRoutes);
 const categoriasRoutes = require('./routes/categorias');
 app.use('/api/categorias', categoriasRoutes);
 
+const proveedoresRoutes = require('./routes/proveedores');
+app.use('/api/proveedores', proveedoresRoutes);
+
 // ── RUTA DE PRUEBA ──
 app.get('/', (req, res) => {
   res.json({ 
