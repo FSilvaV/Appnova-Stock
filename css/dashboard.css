@@ -854,3 +854,109 @@ html, body {
 .toggle input:checked + .toggle-slider:before {
   transform: translateX(20px);
 }
+
+/* ============================================================
+   MEJORAS VISUALES — contraste y separadores
+============================================================ */
+
+/* Filas alternas en tablas */
+.data-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+/* Bordes más visibles entre filas */
+.data-table tbody tr {
+  border-bottom: 1px solid var(--border);
+}
+
+/* Hover más visible */
+.data-table tbody tr:hover td {
+  background: #eff6ff;
+}
+
+/* Sombra más pronunciada en tarjetas */
+.section-card {
+  box-shadow: 0 2px 12px rgba(30,58,138,0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.stat-card {
+  box-shadow: 0 2px 12px rgba(30,58,138,0.08);
+  border: 1px solid #e2e8f0;
+}
+
+/* Fondo del área principal más contrastado */
+.main-body {
+  background: #f1f5f9;
+}
+
+/* Separador visual entre header y contenido */
+.main-header {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Bordes de columnas en tablas */
+.data-table th {
+  border-bottom: 2px solid var(--border);
+  background: #f8fafc;
+}
+
+.data-table td {
+  border-right: 1px solid #f1f5f9;
+}
+
+.data-table td:last-child {
+  border-right: none;
+}
+
+/* ============================================================
+   CONTRASTE ADICIONAL EN TABLAS
+============================================================ */
+
+/* Línea divisoria más visible entre columnas */
+.data-table th,
+.data-table td {
+  border-right: 1px solid #94a3b8;
+  padding: 0.85rem 0.75rem;
+}
+
+.data-table th:last-child,
+.data-table td:last-child {
+  border-right: none;
+}
+
+/* Encabezado de tabla más destacado */
+.data-table thead tr {
+  background: #e8f0fe;
+}
+
+.data-table thead th {
+  border-bottom: 2px solid #94a3b8;
+}
+
+.data-table th {
+  color: #1e3a8a;
+  font-size: 0.73rem;
+  letter-spacing: 0.07em;
+  border-bottom: 2px solid #3b82f6;
+}
+
+/* Filas alternas más diferenciadas */
+.data-table tbody tr:nth-child(odd) {
+  background: #ffffff;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background: #f0f4ff;
+}
+
+/* Hover más marcado */
+.data-table tbody tr:hover td {
+  background: #dbeafe;
+  transition: background 0.15s;
+}
+
+/* Borde inferior más visible entre filas */
+.data-table tbody tr {
+  border-bottom: 2px solid #94a3b8;
+}
