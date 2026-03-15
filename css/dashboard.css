@@ -960,3 +960,67 @@ html, body {
 .data-table tbody tr {
   border-bottom: 2px solid #94a3b8;
 }
+
+/* ============================================================
+   SEPARADORES Y SOMBRAS ENTRE SECCIONES
+============================================================ */
+
+/* Sombra más pronunciada bajo el header */
+.main-header {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-bottom: 2px solid #cbd5e1;
+}
+
+/* Separadores entre grupos del sidebar */
+.sidebar-nav-label {
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Sombra más pronunciada en tarjetas del contenido */
+.section-card {
+  box-shadow: 0 4px 16px rgba(30,58,138,0.12);
+  border: 1px solid #cbd5e1;
+}
+
+.stat-card {
+  box-shadow: 0 4px 16px rgba(30,58,138,0.12);
+  border: 1px solid #cbd5e1;
+}
+
+/* Separador entre el sidebar y el contenido principal */
+.sidebar {
+  border-right: 2px solid #334155;
+}
+
+/* Fondo más contrastado en el main-body */
+.main-body {
+  background: #e8edf4;
+}
+
+/* ============================================================
+   BARRA DE BÚSQUEDA Y FILTROS — más visibles
+============================================================ */
+
+.toolbar-search {
+  border: 1.5px solid #94a3b8;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  background: #ffffff;
+}
+
+.toolbar-search:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+}
+
+.toolbar-select {
+  border: 1.5px solid #94a3b8;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  background: #ffffff;
+}
+
+.toolbar-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+}

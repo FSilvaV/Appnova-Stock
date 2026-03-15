@@ -138,3 +138,45 @@ INSERT INTO productos (nombre, sku, categoria_id, proveedor_id, precio, stock, s
   ('Martillo Stanley 16oz', 'MART-001', 1, 1, 8990, 45, 10),
   ('Tornillos 1/2" (caja x100)', 'TORN-002', 2, 1, 2490, 8, 15),
   ('Lija 120 (unidad)', 'LIJA-003', 3, 1, 390, 2, 10);
+
+  -- ============================================================
+-- ACTUALIZACIÓN v2 — Finanzas, Merma y Fiados
+-- ============================================================
+
+-- Precio compra en productos
+ALTER TABLE productos ADD COLUMN IF NOT EXISTS precio_compra DECIMAL(10,2) DEFAULT 0;
+ALTER TABLE productos RENAME COLUMN precio TO precio_venta;
+
+-- Tabla mermas
+CREATE TABLE IF NOT EXISTS mermas (
+  id SERIAL PRIMARY KEY,
+  producto_id INT REFERENCES productos(id) NOT NULL,
+  usuario_id INT REFERENCES usuarios(id) NOT NULL,
+  tipo VARCHAR(20) CHECK (tipo IN ('merma', 'uso_personal')),
+  cantidad INT NOT NULL,
+  motivo TEXT,
+  creado_en TIMESTAMP DEFAULT NOW()
+);
+
+-- Tabla fiados
+CREATE TABLE IF NOT EXISTS fiados (
+  id SERIAL PRIMARY KEY,
+  nombre_cliente VARCHAR(100) NOT NULL,
+  telefono VARCHAR(20),
+  total_deuda DECIMAL(10,2) DEFAULT 0,
+  estado VARCHAR(20) DEFAULT 'pendiente' CHECK (estado IN ('pendiente', 'al_dia', 'pagado')),
+  nota TEXT,
+  creado_en TIMESTAMP DEFAULT NOW(),
+  actualizado_en TIMESTAMP DEFAULT NOW()
+);
+
+-- Detalle de cada fiado
+CREATE TABLE IF NOT EXISTS fiados_detalle (
+  id SERIAL PRIMARY KEY,
+  fiado_id INT REFERENCES fiados(id) NOT NULL,
+  producto_id INT REFERENCES productos(id),
+  descripcion TEXT NOT NULL,
+  monto DECIMAL(10,2) NOT NULL,
+  pagado BOOLEAN DEFAULT false,
+  creado_en TIMESTAMP DEFAULT NOW()
+);
