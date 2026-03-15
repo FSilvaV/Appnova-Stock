@@ -44,11 +44,11 @@ const getById = async (req, res) => {
 // POST crear producto
 const create = async (req, res) => {
   try {
-    const { nombre, sku, categoria_id, proveedor_id, precio, stock, stock_minimo, imagen_url } = req.body;
+    const { nombre, sku, categoria_id, proveedor_id, precio_venta, precio_compra, stock, stock_minimo, imagen_url } = req.body;
     const resultado = await pool.query(
-      `INSERT INTO productos (nombre, sku, categoria_id, proveedor_id, precio, stock, stock_minimo, imagen_url)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-      [nombre, sku, categoria_id, proveedor_id, precio, stock, stock_minimo, imagen_url]
+      `INSERT INTO productos (nombre, sku, categoria_id, proveedor_id, precio_venta, precio_compra, stock, stock_minimo, imagen_url)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+      [nombre, sku, categoria_id, proveedor_id, precio_venta, precio_compra, stock, stock_minimo, imagen_url]
     );
     res.status(201).json(resultado.rows[0]);
   } catch (error) {
@@ -60,11 +60,11 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, sku, categoria_id, proveedor_id, precio, stock, stock_minimo, imagen_url } = req.body;
+    const { nombre, sku, categoria_id, proveedor_id, precio_venta, precio_compra, stock, stock_minimo, imagen_url } = req.body;
     const resultado = await pool.query(
       `UPDATE productos SET nombre=$1, sku=$2, categoria_id=$3, proveedor_id=$4,
-       precio=$5, stock=$6, stock_minimo=$7, imagen_url=$8 WHERE id=$9 RETURNING *`,
-      [nombre, sku, categoria_id, proveedor_id, precio, stock, stock_minimo, imagen_url, id]
+       precio_venta=$5, precio_compra=$6, stock=$7, stock_minimo=$8, imagen_url=$9 WHERE id=$10 RETURNING *`,
+      [nombre, sku, categoria_id, proveedor_id, precio_venta, precio_compra, stock, stock_minimo, imagen_url, id]
     );
     if (resultado.rows.length === 0) {
       return res.status(404).json({ error: 'Producto no encontrado' });

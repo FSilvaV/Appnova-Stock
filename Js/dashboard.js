@@ -270,7 +270,8 @@ async function editarProducto(id) {
       <div class="form-group"><label class="form-label">SKU</label><input class="form-input" type="text" id="prod-sku" value="${p.sku || ''}"></div>
       <div class="form-group"><label class="form-label">Categoría</label><select class="form-input" id="prod-categoria"><option value="">Sin categoría</option>${opcionesCat}</select></div>
       <div class="form-group"><label class="form-label">Proveedor</label><select class="form-input" id="prod-proveedor"><option value="">Sin proveedor</option>${opcionesProv}</select></div>
-      <div class="form-group"><label class="form-label">Precio</label><input class="form-input" type="number" id="prod-precio" value="${p.precio}"></div>
+      <div class="form-group"><label class="form-label">Precio venta</label><input class="form-input" type="number" id="prod-precio-venta" value="${p.precio_venta}"></div>
+      <div class="form-group"><label class="form-label">Precio compra</label><input class="form-input" type="number" id="prod-precio-compra" value="${p.precio_compra || 0}"></div>
       <div class="form-group"><label class="form-label">Stock</label><input class="form-input" type="number" id="prod-stock" value="${p.stock}"></div>
       <div class="form-group"><label class="form-label">Stock mínimo</label><input class="form-input" type="number" id="prod-stock-min" value="${p.stock_minimo}"></div>
       <button class="btn-modal-submit" id="btnGuardar">Guardar cambios →</button>
@@ -287,7 +288,8 @@ async function actualizarProducto(id) {
   const sku          = document.getElementById('prod-sku').value.trim();
   const categoria_id = document.getElementById('prod-categoria').value || null;
   const proveedor_id = document.getElementById('prod-proveedor').value || null;
-  const precio       = document.getElementById('prod-precio').value;
+  const precio_venta  = document.getElementById('prod-precio-venta').value;
+  const precio_compra = document.getElementById('prod-precio-compra').value;
   const stock        = document.getElementById('prod-stock').value;
   const stock_minimo = document.getElementById('prod-stock-min').value;
   const error        = document.getElementById('prod-error');
@@ -298,7 +300,7 @@ async function actualizarProducto(id) {
     const res = await fetch(`/api/productos/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, sku, categoria_id, proveedor_id, precio, stock, stock_minimo })
+      body: JSON.stringify({ nombre, sku, categoria_id, proveedor_id, precio_venta, precio_compra, stock, stock_minimo })
     });
     if (res.ok) { document.getElementById('modalProducto').remove(); cargarProductos(); }
     else { const d = await res.json(); error.style.display = 'block'; error.textContent = '⚠️ ' + d.error; }
@@ -320,7 +322,8 @@ async function abrirModalProducto() {
       <div class="form-group"><label class="form-label">SKU</label><input class="form-input" type="text" id="prod-sku" placeholder="Ej: MART-001"></div>
       <div class="form-group"><label class="form-label">Categoría</label><select class="form-input" id="prod-categoria"><option value="">Sin categoría</option>${opcionesCat}</select></div>
       <div class="form-group"><label class="form-label">Proveedor</label><select class="form-input" id="prod-proveedor"><option value="">Sin proveedor</option>${opcionesProv}</select></div>
-      <div class="form-group"><label class="form-label">Precio</label><input class="form-input" type="number" id="prod-precio" placeholder="Ej: 8990"></div>
+      <div class="form-group"><label class="form-label">Precio venta</label><input class="form-input" type="number" id="prod-precio-venta" placeholder="Ej: 8990"></div>
+      <div class="form-group"><label class="form-label">Precio compra</label><input class="form-input" type="number" id="prod-precio-compra" placeholder="Ej: 5000"></div>
       <div class="form-group"><label class="form-label">Stock inicial</label><input class="form-input" type="number" id="prod-stock" placeholder="Ej: 10"></div>
       <div class="form-group"><label class="form-label">Stock mínimo</label><input class="form-input" type="number" id="prod-stock-min" placeholder="Ej: 5"></div>
       <button class="btn-modal-submit" id="btnGuardar">Guardar producto →</button>
@@ -337,18 +340,19 @@ async function guardarProducto() {
   const sku          = document.getElementById('prod-sku').value.trim();
   const categoria_id = document.getElementById('prod-categoria').value || null;
   const proveedor_id = document.getElementById('prod-proveedor').value || null;
-  const precio       = document.getElementById('prod-precio').value;
+  const precio_venta  = document.getElementById('prod-precio-venta').value;
+  const precio_compra = document.getElementById('prod-precio-compra').value;
   const stock        = document.getElementById('prod-stock').value;
   const stock_minimo = document.getElementById('prod-stock-min').value;
   const error        = document.getElementById('prod-error');
 
-  if (!nombre || !precio || !stock) { error.style.display = 'block'; error.textContent = '⚠️ Nombre, precio y stock son requeridos.'; return; }
+  if (!nombre || !precio_venta || !stock) { error.style.display = 'block'; error.textContent = '⚠️ Nombre, precio y stock son requeridos.'; return; }
 
   try {
     const res = await fetch('/api/productos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, sku, categoria_id, proveedor_id, precio, stock, stock_minimo })
+      body: JSON.stringify({ nombre, sku, categoria_id, proveedor_id, precio_venta, precio_compra, stock, stock_minimo })
     });
     if (res.ok) { document.getElementById('modalProducto').remove(); cargarProductos(); }
     else { const d = await res.json(); error.style.display = 'block'; error.textContent = '⚠️ ' + d.error; }
