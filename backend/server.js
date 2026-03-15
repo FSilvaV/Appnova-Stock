@@ -42,6 +42,9 @@ app.use('/api/movimientos', movimientosRoutes);
 const usuariosRoutes = require('./routes/usuarios');
 app.use('/api/usuarios', usuariosRoutes);
 
+const permisosRoutes = require('./routes/permisos');
+app.use('/api/permisos', permisosRoutes);
+
 // ── RUTA DE PRUEBA ──
 app.get('/', (req, res) => {
   res.json({ 
