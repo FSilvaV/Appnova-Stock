@@ -723,7 +723,7 @@ async function guardarUsuario(id) {
 // ============================================================
 // PERMISOS
 // ============================================================
-function abrirModalPermisos(id, nombre) {
+async function abrirModalPermisos(id, nombre) {
   const modulos = [
     { key: 'productos',   label: '📦 Productos' },
     { key: 'movimientos', label: '🔄 Movimientos' },
@@ -734,20 +734,109 @@ function abrirModalPermisos(id, nombre) {
     { key: 'usuarios',    label: '👥 Usuarios' },
   ];
 
+  // Carga permisos actuales del usuario
+  const res      = await fetch(`/api/permisos/${id}`);
+  const permisos = await res.json();
+
+  // Crea un mapa de permisos para fácil acceso
+  const mapaPermisos = {};
+  permisos.forEach(p => mapaPermisos[p.modulo] = p.activo);
+
   const modal = crearModal('modalPermisos', `
-    <div class="modal-logo"><div class="modal-logo-icon">🔑</div><div><div class="modal-logo-text">Permisos de ${nombre}</div><div class="modal-logo-sub">Activa o desactiva módulos</div></div><button class="modal-close" id="btnCerrarModal">✕</button></div>
+    <div class="modal-logo">
+      <div class="modal-logo-icon">🔑</div>
+      <div>
+        <div class="modal-logo-text">Permisos de ${nombre}</div>
+        <div class="modal-logo-sub">Activa o desactiva módulos</div>
+      </div>
+      <button class="modal-close" id="btnCerrarModal">✕</button>
+    </div>
+
     <div class="permisos-list">
       ${modulos.map(m => `
         <div class="permiso-item">
           <span class="permiso-label">${m.label}</span>
-          <label class="toggle"><input type="checkbox" checked data-modulo="${m.key}"><span class="toggle-slider"></span></label>
+          <label class="toggle">
+            <input type="checkbox" data-modulo="${m.key}"
+              ${mapaPermisos[m.key] === false ? '' : 'checked'}>
+            <span class="toggle-slider"></span>
+          </label>
         </div>
       `).join('')}
     </div>
+
+    <div class="login-error" id="perm-error"></div>
     <button class="btn-modal-submit" id="btnGuardar">Guardar permisos →</button>
   `);
-  document.getElementById('btnGuardar').addEventListener('click', () => modal.remove());
+
   document.getElementById('btnCerrarModal').addEventListener('click', () => modal.remove());
+
+  document.getElementById('btnGuardar').addEventListener('click', async () => {
+    const checkboxes = document.querySelectorAll('[data-modulo]');
+    const permisosNuevos = Array.from(checkboxes).map(cb => ({
+      modulo: cb.getAttribute('data-modulo'),
+      activo: cb.checked
+    }));
+
+    try {
+      const response = await fetch(`/api/permisos/${id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ permisos: permisosNuevos })
+      });
+
+      if (response.ok) {
+        modal.remove();
+        // Si es el usuario actual aplica permisos inmediatamente
+        const usuarioActual = JSON.parse(localStorage.getItem('usuario'));
+        if (usuarioActual && usuarioActual.id == id) {
+          aplicarPermisos(permisosNuevos);
+        }
+      } else {
+        const error = document.getElementById('perm-error');
+        error.style.display = 'block';
+        error.textContent = '⚠️ Error guardando permisos.';
+      }
+    } catch (e) {
+      console.error('Error:', e);
+    }
+  });
+}
+
+
+// ============================================================
+// APLICAR PERMISOS — oculta módulos según permisos del usuario
+// ============================================================
+function aplicarPermisos(permisos) {
+  permisos.forEach(p => {
+    const item = document.querySelector(`[data-section="${p.modulo}"]`);
+    if (item) {
+      item.style.display = p.activo ? 'flex' : 'none';
+    }
+  });
+}
+
+
+// ============================================================
+// CARGAR PERMISOS AL INICIAR — aplica permisos del usuario logueado
+// ============================================================
+async function cargarPermisosUsuario() {
+  try {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    if (!usuario) return;
+
+    // Admin ve todo siempre
+    if (usuario.rol === 'admin' || usuario.rol === 'superadmin') return;
+
+    const res      = await fetch(`/api/permisos/${usuario.id}`);
+    const permisos = await res.json();
+
+    if (permisos.length > 0) {
+      aplicarPermisos(permisos);
+    }
+  } catch (e) {
+    console.error('Error cargando permisos:', e);
+  }
 }
 
 // ============================================================
@@ -779,4 +868,5 @@ document.querySelectorAll('.sidebar-item').forEach(item => {
 // ============================================================
 // CARGA INICIAL
 // ============================================================
+cargarPermisosUsuario();
 cambiarSeccion('dashboard');
