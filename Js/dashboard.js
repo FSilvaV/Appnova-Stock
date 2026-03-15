@@ -18,7 +18,7 @@ const secciones = {
   alertas:     { titulo: 'Alertas de stock',   subtitulo: 'Productos bajo el stock mínimo',       btnAccion: null },
   categorias:  { titulo: 'Categorías',         subtitulo: 'Gestión de categorías de productos',   btnAccion: '+ Agregar categoría' },
   proveedores: { titulo: 'Proveedores',        subtitulo: 'Gestión de proveedores',               btnAccion: '+ Agregar proveedor' },
-  reportes:    { titulo: 'Reportes',           subtitulo: 'Informes y estadísticas del inventario', btnAccion: '⬇ Exportar reporte' },
+  reportes:    { titulo: 'Reportes',           subtitulo: 'Informes y estadísticas del inventario', btnAccion: null },
   usuarios:    { titulo: 'Usuarios',           subtitulo: 'Gestión de usuarios y permisos',       btnAccion: '+ Agregar usuario' }
 };
 
@@ -37,6 +37,7 @@ btnAccion.addEventListener('click', () => {
   if (seccionActual === 'proveedores') abrirModalProveedor();
   if (seccionActual === 'movimientos') abrirModalMovimiento();
   if (seccionActual === 'usuarios')    abrirModalUsuario();
+  if (seccionActual === 'reportes') window.open('/api/reportes/inventario', '_blank');
 });
 
 // ============================================================
