@@ -623,6 +623,20 @@ async function cargarReportes() {
     document.getElementById('stat-salidas').textContent    = movimientos.filter(m => m.tipo === 'salida').length;
     document.getElementById('stat-valor').textContent      = `$${Math.round(valorInventario).toLocaleString('es-CL')}`;
     document.getElementById('stat-total-mov').textContent  = movimientos.length;
+
+    // Conecta botones de exportar PDF
+document.querySelectorAll('.btn-report').forEach((btn, i) => {
+  const rutas = [
+    '/api/reportes/inventario',
+    '/api/reportes/movimientos',
+    '/api/reportes/alertas',
+    '/api/reportes/inventario'
+  ];
+  btn.addEventListener('click', () => {
+    window.open(rutas[i], '_blank');
+  });
+});
+
   } catch (e) { console.error('Error reportes:', e); }
 }
 
