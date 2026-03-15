@@ -13,8 +13,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ── MIDDLEWARES ──
-app.use(cors());
+app.use(cors({
+  origin: '*'
+}));
 app.use(express.json());
+
+const path = require('path');
+app.use(express.static(path.join(__dirname, '..')));
+
+// ── RUTAS ──
 
 // ── RUTAS ──
 const productosRoutes = require('./routes/productos');
