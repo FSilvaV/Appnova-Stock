@@ -10,10 +10,15 @@ const pool = require('../db');
 // GET todos los productos
 const getAll = async (req, res) => {
   try {
-    const resultado = await pool.query(
-      'SELECT * FROM productos ORDER BY nombre ASC'
-    );
-    res.json(resultado.rows);
+    const resultado = await pool.query(`
+  SELECT p.*, 
+         c.nombre as categoria_nombre,
+         pr.nombre as proveedor_nombre
+  FROM productos p
+  LEFT JOIN categorias c ON p.categoria_id = c.id
+  LEFT JOIN proveedores pr ON p.proveedor_id = pr.id
+  ORDER BY p.nombre ASC
+`);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

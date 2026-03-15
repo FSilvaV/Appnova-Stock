@@ -118,7 +118,7 @@ async function cargarAlertas() {
           <div class="product-name">${p.nombre}</div>
           <div class="product-sku">SKU: ${p.sku || '—'}</div>
         </td>
-        <td>${p.categoria_id || '—'}</td>
+        <td>${p.categoria_nombre || '—'}</td>
         <td><strong style="color:${p.stock === 0 ? 'var(--red)' : 'var(--amber)'}">${p.stock}</strong></td>
         <td>${p.stock_minimo}</td>
         <td><span class="badge ${p.stock === 0 ? 'red' : 'amber'}">${p.stock === 0 ? 'Sin stock' : 'Bajo'}</span></td>
