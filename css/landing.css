@@ -23,22 +23,9 @@
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--charcoal);
+      background: linear-gradient(145deg, #1e3a8a 0%, #3b82f6 100%);
       color: var(--text);
       overflow-x: hidden;
-    }
-
-    /* ── GRID DE FONDO ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
     }
 
     /* ── NAVBAR ── */
@@ -205,7 +192,7 @@
       padding: 6px 14px;
       border-radius: 99px;
       border: 1px solid rgba(59,130,246,0.35);
-      background: rgba(59,130,246,0.08);
+      background: #0a0f1a;
       font-size: 0.72rem;
       font-weight: 600;
       color: #93c5fd;
@@ -580,11 +567,26 @@
       font-weight: 300;
     }
 
-    /* ── APPS / PRODUCTOS ── */
+    /* ── APPS / PRODUCTOS ── fondo blanco */
     .apps-section {
       padding: 6rem 0;
-      border-top: 1px solid var(--border);
+      background: #ffffff;
+      border-top: none;
     }
+    .apps-section .section-eyebrow { color: var(--blue); }
+    .apps-section .section-title { color: #0f172a; }
+    .apps-section .section-sub { color: #475569; }
+    .apps-section .app-card {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+    .apps-section .app-card:hover {
+      background: #eff6ff;
+      border-color: rgba(59,130,246,0.3);
+    }
+    .apps-section .app-card-title { color: #0f172a; }
+    .apps-section .app-card-desc { color: #475569; }
+    .apps-section .app-card-features li { color: #64748b; }
 
     .apps-header {
       text-align: center;
@@ -696,10 +698,11 @@
       font-size: 0.75rem;
     }
 
-    /* ── WEBS PARA CLIENTES ── */
+    /* ── WEBS PARA CLIENTES ── fondo oscuro */
     .webs-section {
       padding: 6rem 0;
-      border-top: 1px solid var(--border);
+      background: linear-gradient(145deg, #1e3a8a 0%, #3b82f6 100%);
+      border-top: none;
     }
 
     .webs-grid {
@@ -710,7 +713,7 @@
     }
 
     .web-card {
-      background: rgba(255,255,255,0.03);
+      background: #0a0f1a;
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.5rem;
@@ -759,10 +762,11 @@
     .status-dev { background: rgba(245,158,11,0.1); color: var(--amber); }
     .status-soon { background: rgba(255,255,255,0.05); color: var(--text3); }
 
-    /* ── SOBRE MÍ ── */
+    /* ── SOBRE MÍ ── fondo oscuro */
     .about-section {
       padding: 6rem 0;
-      border-top: 1px solid var(--border);
+      background: #0f172a;
+      border-top: none;
     }
 
     .about-inner {
@@ -860,11 +864,15 @@
       margin-top: 1px;
     }
 
-    /* ── POR QUÉ APPNOVA ── */
+    /* ── POR QUÉ APPNOVA ── fondo blanco */
     .why-section {
       padding: 6rem 0;
-      border-top: 1px solid var(--border);
+      background: #ffffff;
+      border-top: none;
     }
+
+    .why-section .section-eyebrow { color: var(--blue); }
+    .why-section .section-title { color: #0f172a; }
 
     .why-header {
       text-align: center;
@@ -878,16 +886,16 @@
     }
 
     .why-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
+      background: var(--blue);
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
       padding: 1.5rem;
       transition: all 0.3s;
     }
 
     .why-card:hover {
-      border-color: rgba(59,130,246,0.25);
-      background: rgba(59,130,246,0.04);
+      border-color: rgba(59,130,246,0.3);
+      background: #0f172a;
     }
 
     .why-card-icon {
@@ -899,21 +907,40 @@
       font-family: 'Syne', sans-serif;
       font-size: 0.95rem;
       font-weight: 700;
-      color: var(--white);
+      color: #eff6ff;
       margin-bottom: 0.5rem;
     }
 
     .why-card-desc {
       font-size: 0.82rem;
-      color: var(--text2);
+      color: #eff6ff;
       line-height: 1.6;
       font-weight: 300;
     }
 
-    /* ── CTA ── */
+    /* ── CTA ── fondo azul degradado */
     .cta-section {
       padding: 6rem 0;
-      border-top: 1px solid var(--border);
+      background: linear-gradient(145deg, #1e3a8a 0%, #3b82f6 100%);
+      border-top: none;
+    }
+
+    .cta-section .section-eyebrow {
+      color: rgba(255,255,255,0.7);
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .cta-section .section-title { color: #ffffff; }
+    .cta-section .section-sub { color: rgba(255,255,255,0.75); }
+    .cta-section .cta-note { color: rgba(255,255,255,0.5); }
+    .cta-section .btn-hero-secondary {
+      border-color: rgba(255,255,255,0.3);
+      color: #ffffff;
+    }
+    .cta-section .btn-hero-secondary:hover {
+      border-color: #ffffff;
+      background: rgba(255,255,255,0.1);
     }
 
     .cta-inner {
@@ -945,7 +972,8 @@
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--border);
+      border-top: none;
+      background: #0a0f1a;
       padding: 2rem 4rem;
       display: flex;
       align-items: center;
@@ -1312,4 +1340,19 @@
     font-size: 0.72rem;
     text-align: center;
   }
+}
+
+/* Secciones blancas — tapar el grid de fondo */
+.apps-section,
+.why-section {
+  isolation: isolate;
+}
+
+.apps-section::before,
+.why-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  z-index: -1;
 }
