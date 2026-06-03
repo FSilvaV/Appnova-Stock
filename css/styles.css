@@ -342,3 +342,53 @@ body {
 .login-back:hover {
   color: var(--charcoal) !important;
 }
+
+/* ============================================================
+   RESPONSIVE — MEDIA QUERIES
+============================================================ */
+
+/* ── TABLET (≤768px) ── */
+@media (max-width: 768px) {
+
+  body {
+    overflow: auto;
+  }
+
+  .login-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  /* Ocultar columna izquierda en móvil */
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    padding: 2rem 1.25rem;
+    min-height: 100vh;
+  }
+
+  .login-form-wrapper {
+    max-width: 100%;
+  }
+
+  /* Mostrar logo arriba del formulario en móvil */
+  .login-right::before {
+    content: '';
+    display: block;
+  }
+}
+
+/* ── MÓVIL PEQUEÑO (≤480px) ── */
+@media (max-width: 480px) {
+
+  .login-right {
+    padding: 1.5rem 1rem;
+    align-items: flex-start;
+    padding-top: 3rem;
+  }
+
+  .login-form-title {
+    font-size: 1.4rem;
+  }
+}

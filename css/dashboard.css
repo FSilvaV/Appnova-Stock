@@ -1024,3 +1024,190 @@ html, body {
   border-color: #3b82f6;
   box-shadow: 0 2px 8px rgba(59,130,246,0.2);
 }
+
+/* ============================================================
+   RESPONSIVE — MEDIA QUERIES
+   El dashboard en móvil oculta el sidebar y lo convierte
+   en un menú desplegable con botón hamburguesa
+============================================================ */
+
+/* ── TABLET (≤1024px) ── */
+@media (max-width: 1024px) {
+
+  .app-wrapper {
+    grid-template-columns: 220px 1fr;
+  }
+
+  .main-body {
+    padding: 1.25rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .main-header {
+    padding: 1rem 1.25rem;
+  }
+}
+
+
+/* ── MÓVIL (≤768px) ── */
+@media (max-width: 768px) {
+
+  html, body {
+    overflow: auto;
+  }
+
+  /* Layout: sidebar arriba, contenido abajo */
+  .app-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  /* Sidebar se convierte en barra superior */
+  .sidebar {
+    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 1rem;
+    min-height: 60px;
+    overflow: visible;
+  }
+
+  .sidebar-logo {
+    padding: 0.75rem 0;
+    flex: 1;
+  }
+
+  /* Ocultar elementos del sidebar que no caben */
+  .sidebar-divider,
+  .sidebar-nav,
+  .sidebar-profile-info,
+  .sidebar-nav-label {
+    display: none;
+  }
+
+  /* Perfil compacto en la barra */
+  .sidebar-profile {
+    border-top: none;
+    margin-top: 0;
+    padding: 0;
+    gap: 0.5rem;
+  }
+
+  .sidebar-profile-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
+  }
+
+  /* Contenido principal */
+  .main-content {
+    height: auto;
+    overflow: visible;
+  }
+
+  .main-body {
+    overflow: visible;
+    padding: 1rem;
+  }
+
+  /* Header */
+  .main-header {
+    padding: 0.85rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .main-header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .main-header-date {
+    font-size: 0.72rem;
+  }
+
+  .btn-primary {
+    font-size: 0.78rem;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Stats grid en 2 columnas */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-card-num {
+    font-size: 1.3rem;
+  }
+
+  /* Tablas: scroll horizontal */
+  .section-card {
+    overflow-x: auto;
+    padding: 1rem;
+  }
+
+  .data-table {
+    min-width: 500px;
+  }
+
+  /* Toolbar */
+  .module-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar-search {
+    max-width: 100%;
+  }
+
+  .toolbar-filters {
+    flex-wrap: wrap;
+  }
+
+  /* Modal */
+  .modal {
+    margin: 1rem;
+    padding: 1.25rem;
+  }
+}
+
+
+/* ── MÓVIL PEQUEÑO (≤480px) ── */
+@media (max-width: 480px) {
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .stat-card-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .stat-card-num {
+    font-size: 1.1rem;
+  }
+
+  .stat-card-label {
+    font-size: 0.68rem;
+  }
+
+  .main-header-title {
+    font-size: 1.1rem;
+  }
+}
