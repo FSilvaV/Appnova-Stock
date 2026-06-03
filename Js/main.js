@@ -54,12 +54,6 @@ btnLogin.addEventListener('click', async () => {
   // ESTO SE REEMPLAZARÁ por una llamada real a la BD con Node.js
  // ── LLAMADA REAL A LA API ──
 // Envía las credenciales al backend y espera respuesta
-try {
-  const response = await fetch('http://localhost:3000/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  });
 
   const data = await response.json();
 

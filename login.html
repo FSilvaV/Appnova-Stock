@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AppNova Stock — Control de inventario</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ============================================================
+    PÁGINA DE BIENVENIDA CON LOGIN
+    Es la primera pantalla que ve el usuario al entrar a la app
+    Dividida en 2 columnas:
+    - Izquierda: presentación visual de la app
+    - Derecha: formulario de login
+    CSS necesario: layout de 2 columnas, fondo azul izquierda
+    JS necesario: validación del formulario y manejo de roles
+    BD necesario: verificar usuario/contraseña y retornar rol
+  ============================================================ -->
+
+  <div class="login-wrapper">
+
+    <!-- ── COLUMNA IZQUIERDA — presentación visual ── -->
+    <div class="login-left">
+
+      <!-- Fondo decorativo -->
+      <div class="login-bg-dots"></div>
+      <div class="login-blob"></div>
+
+      <!-- Contenido -->
+      <div class="login-left-content">
+
+        <!-- Logo -->
+        <div class="login-logo">
+          <div class="login-logo-icon">
+            <svg viewBox="0 0 28 28" fill="none" width="20" height="20">
+              <rect x="6" y="2" width="16" height="24" rx="3" fill="white" opacity="0.9"/>
+              <rect x="9" y="5" width="10" height="14" rx="1.5" fill="#3b82f6"/>
+              <circle cx="14" cy="22" r="1.5" fill="#3b82f6"/>
+              <path d="M10.5 11.5L13 14L17.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="login-logo-text">
+            <span class="login-logo-name">AppNova Stock</span>
+            <span class="login-logo-tag">by AppNova Solutions</span>
+          </div>
+        </div>
+
+        <!-- Título y descripción -->
+        <h1 class="login-left-title">Control de inventario para tu negocio</h1>
+        <p class="login-left-sub">Gestiona productos, entradas, salidas y reportes desde un solo lugar. Simple y accesible.</p>
+
+        <!-- Módulos disponibles — referencia visual -->
+        <!--
+          Estos íconos muestran al usuario qué puede hacer en la app
+          En el futuro algunos se mostrarán o no según el rol del usuario
+        -->
+        <div class="login-modules">
+          <div class="login-module">📦 Productos</div>
+          <div class="login-module">🏷️ Categorías</div>
+          <div class="login-module">🔄 Entradas y salidas</div>
+          <div class="login-module">🚨 Alertas de stock</div>
+          <div class="login-module">🏭 Proveedores</div>
+          <div class="login-module">📊 Reportes</div>
+        </div>
+
+        <!-- Nota de roles — informativa -->
+        <!--
+          BD necesario: esta sección se personalizará según el rol
+          Vendedor verá módulos limitados
+          Supervisor y Admin verán todos
+        -->
+        <div class="login-roles-note">
+          <span>👤 Vendedor</span>
+          <span>·</span>
+          <span>👔 Supervisor</span>
+          <span>·</span>
+          <span>🔑 Administrador</span>
+        </div>
+
+      </div>
+      <!-- FIN login-left-content -->
+
+    </div>
+    <!-- FIN COLUMNA IZQUIERDA -->
+
+
+    <!-- ── COLUMNA DERECHA — formulario de login ── -->
+    <div class="login-right">
+
+      <div class="login-form-wrapper">
+
+        <!-- Encabezado del formulario -->
+        <div class="login-form-header">
+          <h2 class="login-form-title">Iniciar sesión</h2>
+          <p class="login-form-sub">Ingresa tus credenciales para acceder</p>
+        </div>
+
+        <!-- Formulario -->
+        <!--
+          JS necesario: capturar submit, validar campos vacíos
+          BD necesario: verificar usuario y contraseña
+          Roles: según respuesta de BD redirigir a dashboard con permisos correspondientes
+        -->
+        <div class="login-form">
+
+          <div class="form-group">
+            <label class="form-label">Correo electrónico</label>
+            <input class="form-input" type="email" id="email" placeholder="usuario@empresa.cl">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Contraseña</label>
+            <input class="form-input" type="password" id="password" placeholder="••••••••">
+            <!--
+              JS necesario: toggle para mostrar/ocultar contraseña
+            -->
+            <button class="form-toggle-pass" type="button" id="togglePass">👁</button>
+          </div>
+
+          <!-- Olvidé mi contraseña -->
+          <div class="form-forgot">
+            <!--
+              En el futuro: lleva a página de recuperación de contraseña
+              BD necesario: envío de email de recuperación
+            -->
+            <a href="#" class="form-forgot-link">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <!-- Botón de ingreso -->
+          <button class="btn-login" id="btnLogin">Ingresar →</button>
+
+          <!--
+            JS necesario: mostrar este mensaje si las credenciales son incorrectas
+            Oculto por defecto con CSS display:none
+          -->
+          <div class="login-error" id="loginError">
+            ⚠️ Correo o contraseña incorrectos. Intenta nuevamente.
+          </div>
+
+        </div>
+        <!-- FIN login-form -->
+
+        <!-- Footer del formulario -->
+        <div class="login-form-footer">
+          <p>¿Problemas para acceder? <a href="#">Contactar soporte</a></p>
+          <a href="index.html" class="login-back">← Volver al inicio</a>
+        </div>
+
+      </div>
+      <!-- FIN login-form-wrapper -->
+
+    </div>
+    <!-- FIN COLUMNA DERECHA -->
+
+  </div>
+  <!-- FIN login-wrapper -->
+
+  <script src="js/main.js"></script>
+</body>
+</html>
