@@ -22,7 +22,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--charcoal);
       color: var(--text);
       overflow-x: hidden;
