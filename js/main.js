@@ -72,24 +72,28 @@ setInterval(rotateDashboardRow, 2800);
 /* ── 4. Formulario de contacto ──────────────────────── */
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', e => {
+contactForm.addEventListener('submit', async e => {
   e.preventDefault();
 
   const submitBtn = contactForm.querySelector('button[type="submit"]');
-  submitBtn.textContent = '✓ Mensaje enviado';
-  submitBtn.style.background = '#16A34A';
+  submitBtn.textContent = 'Enviando...';
   submitBtn.disabled = true;
 
-  /* 
-    TODO: reemplazar este bloque con el envío real.
-    Opciones: Formspree, EmailJS, endpoint propio.
-    
-    Ejemplo con Formspree:
-    const formData = new FormData(contactForm);
-    await fetch('https://formspree.io/f/TU_ID', {
-      method: 'POST',
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    });
-  */
+  const formData = new FormData(contactForm);
+
+  const res = await fetch('https://formspree.io/f/mykqjrok', {
+    method: 'POST',
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  });
+
+  if (res.ok) {
+    submitBtn.textContent = '✓ Mensaje enviado';
+    submitBtn.style.background = '#16A34A';
+    contactForm.reset();
+  } else {
+    submitBtn.textContent = '✗ Error al enviar';
+    submitBtn.style.background = '#DC2626';
+    submitBtn.disabled = false;
+  }
 });
