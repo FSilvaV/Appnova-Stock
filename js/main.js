@@ -1,77 +1,95 @@
-// ============================================================
-// TOGGLE CONTRASEÑA
-// ============================================================
+/* ═══════════════════════════════════════════════════════
+   AppNova Solutions — main.js
+   ═══════════════════════════════════════════════════════ */
 
-const togglePass = document.getElementById('togglePass');
-const passwordInput = document.getElementById('password');
+/* ── 1. Modo oscuro / claro ─────────────────────────── */
+const root       = document.documentElement;
+const themeBtn   = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('appnova-theme');
 
-togglePass.addEventListener('click', () => {
-  if (passwordInput.type === 'password') {
-    passwordInput.type = 'text';
-    togglePass.textContent = '🙈';
-  } else {
-    passwordInput.type = 'password';
-    togglePass.textContent = '👁';
-  }
+if (savedTheme) {
+  root.setAttribute('data-theme', savedTheme);
+} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  root.setAttribute('data-theme', 'dark');
+}
+
+themeBtn.addEventListener('click', () => {
+  const current = root.getAttribute('data-theme');
+  const next    = current === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('appnova-theme', next);
 });
 
+/* ── 2. Scroll reveal ───────────────────────────────── */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
 
-// ============================================================
-// CREDENCIALES TEMPORALES — reemplazar por backend cuando esté listo
-// ============================================================
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-const USUARIOS_DEMO = [
-  { email: 'admin@appnova.cl', password: 'AppNova2026' },
-  { email: 'demo@appnova.cl',  password: 'demo1234'    }
+/* ── 3. Dashboard animado (hero) ────────────────────── */
+const dashboardRows = [
+  ['Aceite 1L',        '18', '$3.490', true],
+  ['Arroz 1kg',        '55', '$1.290', true],
+  ['Detergente',        '6', '$5.990', false],
+  ['Escoba',            '3', '$4.500', false],
+  ['Papel higiénico',  '80', '$2.990', true],
+  ['Azúcar 1kg',       '40', '$1.490', true],
 ];
 
+let rowIndex = 0;
+const tbody  = document.getElementById('dp-tbody');
 
-// ============================================================
-// LOGIN
-// ============================================================
+function rotateDashboardRow() {
+  const row    = dashboardRows[rowIndex % dashboardRows.length];
+  rowIndex++;
 
-const btnLogin    = document.getElementById('btnLogin');
-const emailInput  = document.getElementById('email');
-const loginError  = document.getElementById('loginError');
+  const statusBadge = row[3]
+    ? '<span class="badge badge--ok">Ok</span>'
+    : '<span class="badge badge--low">Bajo</span>';
 
-btnLogin.addEventListener('click', () => {
+  const firstRow = tbody.querySelector('tr');
+  if (firstRow) firstRow.remove();
 
-  const email    = emailInput.value.trim();
-  const password = passwordInput.value.trim();
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = `
+    <td>${row[0]}</td>
+    <td>${row[1]}</td>
+    <td>${row[2]}</td>
+    <td>${statusBadge}</td>
+  `;
+  newRow.classList.add('highlight-new');
+  tbody.appendChild(newRow);
+}
 
-  if (!email || !password) {
-    loginError.style.display = 'block';
-    loginError.textContent = '⚠️ Por favor completa todos los campos.';
-    return;
-  }
+setInterval(rotateDashboardRow, 2800);
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    loginError.style.display = 'block';
-    loginError.textContent = '⚠️ Ingresa un correo electrónico válido.';
-    return;
-  }
+/* ── 4. Formulario de contacto ──────────────────────── */
+const contactForm = document.getElementById('contactForm');
 
-  const usuario = USUARIOS_DEMO.find(u => u.email === email && u.password === password);
+contactForm.addEventListener('submit', e => {
+  e.preventDefault();
 
-  if (!usuario) {
-    loginError.style.display = 'block';
-    loginError.textContent = '⚠️ Correo o contraseña incorrectos.';
-    return;
-  }
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+  submitBtn.textContent = '✓ Mensaje enviado';
+  submitBtn.style.background = '#16A34A';
+  submitBtn.disabled = true;
 
-  window.location.href = 'dashboard.html';
-});
-
-
-// ============================================================
-// OCULTAR ERROR al empezar a escribir
-// ============================================================
-
-emailInput.addEventListener('input', () => {
-  loginError.style.display = 'none';
-});
-
-passwordInput.addEventListener('input', () => {
-  loginError.style.display = 'none';
+  /* 
+    TODO: reemplazar este bloque con el envío real.
+    Opciones: Formspree, EmailJS, endpoint propio.
+    
+    Ejemplo con Formspree:
+    const formData = new FormData(contactForm);
+    await fetch('https://formspree.io/f/TU_ID', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+  */
 });

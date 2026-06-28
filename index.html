@@ -1,415 +1,355 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AppNova Solutions — Software para tu negocio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/landing.css">
+  <meta name="description" content="Sistema de control de inventario simple y accesible para pequeños negocios en Chile. AppNova Stock." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ── NAVBAR ── -->
-  <nav id="navbar">
-    <a href="#" class="nav-logo">
-      <div class="nav-logo-icon">
-        <svg viewBox="0 0 28 28" fill="none" width="18" height="18">
-          <rect x="6" y="2" width="16" height="24" rx="3" fill="white" opacity="0.9"/>
-          <rect x="9" y="5" width="10" height="14" rx="1.5" fill="#3b82f6"/>
-          <circle cx="14" cy="22" r="1.5" fill="#3b82f6"/>
-          <path d="M10.5 11.5L13 14L17.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- ═══ NAVBAR ═══════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo">
+      <div class="nav__logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="2" width="14" height="20" rx="2" fill="white"/>
+          <rect x="8" y="6" width="8" height="1.5" rx=".75" fill="#2563EB"/>
+          <rect x="8" y="9.5" width="8" height="1.5" rx=".75" fill="#2563EB"/>
+          <rect x="8" y="13" width="5" height="1.5" rx=".75" fill="#93C5FD"/>
         </svg>
       </div>
-      <div>
-        <div class="nav-logo-name">AppNova Solutions</div>
-        <div class="nav-logo-tag">Chile</div>
+      <div class="nav__logo-text">
+        <span class="nav__logo-name">AppNova</span>
+        <span class="nav__logo-sub">Solutions Ltda.</span>
       </div>
     </a>
 
-    <div class="nav-links">
-      <a href="#apps">Productos</a>
-      <a href="#webs">Proyectos web</a>
-      <a href="#contacto">Contacto</a>
-    </div>
-
-    <div class="nav-actions">
-      <a href="demo/index.html" class="btn-ghost">
-        🧪 Ver demo
-      </a>
-      <button class="btn-blue" onclick="abrirPortal()">
-        🔐 Acceder a mi app
+    <div class="nav__actions">
+      <a href="#contacto" class="nav__link">Contacto</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <!-- Sol -->
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Luna -->
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
       </button>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- ── HERO ── -->
-  <section class="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-glow2"></div>
-
-    <div class="hero-inner">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="hero-badge-dot"></span>
-          AppNova Solutions
+<!-- ═══ HERO ══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Disponible ahora · AppNova Stock
+      </div>
+      <h1 class="hero__title">
+        Tu inventario,<br>
+        <span>bajo control.</span>
+      </h1>
+      <p class="hero__desc">
+        Sistema de control de stock simple y accesible para pequeños negocios en Chile. Sin complicaciones, sin costos ocultos.
+      </p>
+      <div class="hero__cta">
+        <a href="#contacto" class="btn btn-primary">Solicitar información</a>
+        <a href="#stock" class="btn btn-outline">Ver funciones →</a>
+      </div>
+      <div class="hero__stats">
+        <div>
+          <div class="hero__stat-num">48h</div>
+          <div class="hero__stat-label">Implementación</div>
         </div>
-
-        <h1 class="hero-title">
-          Software a medida<br>para tu <span class="accent">negocio</span>
-        </h1>
-
-        <p class="hero-sub">
-          Desarrollo de aplicaciones web y sistemas de gestión para condominios, pymes y pequeños negocios. Simple y accesible.
-        </p>
-
-        <div class="hero-btns">
-          <a href="#apps" class="btn-hero-primary">
-            Ver mis productos →
-          </a>
+        <div>
+          <div class="hero__stat-num">100%</div>
+          <div class="hero__stat-label">Hecho en Chile</div>
         </div>
-
-        <div class="hero-stats">
-          <div>
-            <div class="hero-stat-num">3</div>
-            <div class="hero-stat-label">Productos</div>
-          </div>
-          <div class="hero-stat-divider"></div>
-          <div>
-            <div class="hero-stat-num">100%</div>
-            <div class="hero-stat-label">Personalizable</div>
-          </div>
-          <div class="hero-stat-divider"></div>
-          <div>
-            <div class="hero-stat-num">🇨🇱</div>
-            <div class="hero-stat-label">Hecho en Chile</div>
-          </div>
+        <div>
+          <div class="hero__stat-num">$0</div>
+          <div class="hero__stat-label">Costos ocultos</div>
         </div>
       </div>
+    </div>
 
-      <!-- Mockup del dashboard -->
-      <div class="hero-visual">
-        <div class="mockup-window">
-          <div class="mockup-bar">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-yellow"></span>
-            <span class="dot dot-green"></span>
+    <!-- Dashboard animado -->
+    <div class="dashboard-preview">
+      <div class="dp__bar">
+        <span class="dp__dot dp__dot--red"></span>
+        <span class="dp__dot dp__dot--yellow"></span>
+        <span class="dp__dot dp__dot--green"></span>
+        <span class="dp__title-bar">AppNova Stock · Panel de control</span>
+      </div>
+      <div class="dp__body">
+        <div class="dp__cards">
+          <div class="dp__card">
+            <div class="dp__card-label">Productos</div>
+            <div class="dp__card-value">142</div>
           </div>
-          <div class="mockup-body">
-            <div class="mockup-sidebar">
-              <div class="mockup-logo-row">
-                <div class="mockup-logo-box"></div>
-                <span class="mockup-logo-text">AppNova Stock</span>
-              </div>
-              <div class="mockup-nav-item active">
-                <span class="mockup-nav-dot"></span> Dashboard
-              </div>
-              <div class="mockup-nav-item">
-                <span class="mockup-nav-dot"></span> Productos
-              </div>
-              <div class="mockup-nav-item">
-                <span class="mockup-nav-dot"></span> Movimientos
-              </div>
-              <div class="mockup-nav-item">
-                <span class="mockup-nav-dot"></span> Alertas
-              </div>
-              <div class="mockup-nav-item">
-                <span class="mockup-nav-dot"></span> Categorías
-              </div>
-              <div class="mockup-nav-item">
-                <span class="mockup-nav-dot"></span> Reportes
-              </div>
+          <div class="dp__card">
+            <div class="dp__card-label">Stock ok</div>
+            <div class="dp__card-value">138</div>
+          </div>
+          <div class="dp__card">
+            <div class="dp__card-label">Alertas</div>
+            <div class="dp__card-value alert">4</div>
+          </div>
+        </div>
+        <table class="dp__table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Stock</th>
+              <th>Precio</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="dp-tbody">
+            <tr>
+              <td>Martillo 16oz</td><td>45</td><td>$8.990</td>
+              <td><span class="badge badge--ok">Ok</span></td>
+            </tr>
+            <tr>
+              <td>Tornillos 1/2"</td><td>8</td><td>$2.490</td>
+              <td><span class="badge badge--low">Bajo</span></td>
+            </tr>
+            <tr>
+              <td>Lija N°120</td><td>29</td><td>$390</td>
+              <td><span class="badge badge--ok">Ok</span></td>
+            </tr>
+            <tr>
+              <td>Pintura 1L</td><td>2</td><td>$4.200</td>
+              <td><span class="badge badge--low">Bajo</span></td>
+            </tr>
+            <tr>
+              <td>Cinta adhesiva</td><td>60</td><td>$1.290</td>
+              <td><span class="badge badge--ok">Ok</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ APPNOVA STOCK ══════════════════════════════════════ -->
+<section class="section section--soft" id="stock">
+  <div class="container">
+    <div class="reveal">
+      <div class="section__eyebrow">AppNova Stock</div>
+      <h2 class="section__title">Control de inventario<br>sin complicaciones</h2>
+      <p class="section__desc">
+        Diseñado para ferreterías, minimarkets, botillerías y negocios de barrio. Funciona desde el día uno.
+      </p>
+    </div>
+    <div class="stock-grid reveal">
+      <ul class="features-list">
+        <li>
+          <div class="feature-icon">📦</div>
+          <div class="feature-text">
+            <strong>Gestión de productos</strong>
+            <span>Agrega, edita y organiza tu inventario por categorías con fotos y precios.</span>
+          </div>
+        </li>
+        <li>
+          <div class="feature-icon">🔔</div>
+          <div class="feature-text">
+            <strong>Alertas de stock mínimo</strong>
+            <span>Te avisamos automáticamente cuando un producto está por agotarse.</span>
+          </div>
+        </li>
+        <li>
+          <div class="feature-icon">👥</div>
+          <div class="feature-text">
+            <strong>Roles de usuario</strong>
+            <span>Vendedor, supervisor y administrador con permisos configurables.</span>
+          </div>
+        </li>
+        <li>
+          <div class="feature-icon">📊</div>
+          <div class="feature-text">
+            <strong>Movimientos y reportes</strong>
+            <span>Historial completo de entradas, salidas y ventas con exportación a Excel.</span>
+          </div>
+        </li>
+        <li>
+          <div class="feature-icon">🏷️</div>
+          <div class="feature-text">
+            <strong>White label disponible</strong>
+            <span>Tu logo y nombre de negocio en el sistema. AppNova trabaja en segundo plano.</span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="dashboard-preview">
+        <div class="dp__bar">
+          <span class="dp__dot dp__dot--red"></span>
+          <span class="dp__dot dp__dot--yellow"></span>
+          <span class="dp__dot dp__dot--green"></span>
+          <span class="dp__title-bar">Movimientos del día</span>
+        </div>
+        <div class="dp__body">
+          <div class="dp__cards" style="grid-template-columns:1fr 1fr;">
+            <div class="dp__card">
+              <div class="dp__card-label">Entradas hoy</div>
+              <div class="dp__card-value">12</div>
             </div>
-            <div class="mockup-content">
-              <div class="mockup-stats">
-                <div class="mockup-stat">
-                  <div class="mockup-stat-num">24</div>
-                  <div class="mockup-stat-label">Productos</div>
-                </div>
-                <div class="mockup-stat">
-                  <div class="mockup-stat-num">18</div>
-                  <div class="mockup-stat-label">Stock ok</div>
-                </div>
-                <div class="mockup-stat">
-                  <div class="mockup-stat-num" style="color:#f87171">3</div>
-                  <div class="mockup-stat-label">Alertas</div>
-                </div>
-                <div class="mockup-stat">
-                  <div class="mockup-stat-num">47</div>
-                  <div class="mockup-stat-label">Movim.</div>
-                </div>
-              </div>
-              <div class="mockup-table">
-                <div class="mockup-table-header">
-                  <span class="mockup-th">Producto</span>
-                  <span class="mockup-th">Stock</span>
-                  <span class="mockup-th">Precio</span>
-                  <span class="mockup-th">Estado</span>
-                </div>
-                <div class="mockup-row">
-                  <span class="mockup-td">Martillo 16oz</span>
-                  <span class="mockup-td">45</span>
-                  <span class="mockup-td">$8.990</span>
-                  <span class="mockup-td"><span class="mockup-badge mockup-badge-green">Ok</span></span>
-                </div>
-                <div class="mockup-row">
-                  <span class="mockup-td">Tornillos 1/2"</span>
-                  <span class="mockup-td">8</span>
-                  <span class="mockup-td">$2.490</span>
-                  <span class="mockup-td"><span class="mockup-badge mockup-badge-red">Bajo</span></span>
-                </div>
-                <div class="mockup-row">
-                  <span class="mockup-td">Lija 120</span>
-                  <span class="mockup-td">29</span>
-                  <span class="mockup-td">$390</span>
-                  <span class="mockup-td"><span class="mockup-badge mockup-badge-green">Ok</span></span>
-                </div>
-                <div class="mockup-row">
-                  <span class="mockup-td">Pintura 1L</span>
-                  <span class="mockup-td">2</span>
-                  <span class="mockup-td">$4.200</span>
-                  <span class="mockup-td"><span class="mockup-badge mockup-badge-red">Bajo</span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tarjetas flotantes -->
-        <div class="float-card float-card-1">
-          <div class="float-card-label">Valor inventario</div>
-          <div class="float-card-value green">$1.24M</div>
-        </div>
-        <div class="float-card float-card-2">
-          <div class="float-card-label">Alertas activas</div>
-          <div class="float-card-value amber">3 productos</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── APPS / PRODUCTOS ── -->
-  <section class="apps-section" id="apps">
-    <div class="section-inner">
-      <div class="apps-header reveal">
-        <div class="section-eyebrow">Mis productos</div>
-        <h2 class="section-title">Aplicaciones desarrolladas</h2>
-        <p class="section-sub">Sistemas de gestión construidos desde cero, adaptables a cada negocio con planes y módulos configurables.</p>
-      </div>
-
-      <div class="apps-grid">
-        <!-- AppNova Stock -->
-        <div class="app-card reveal">
-          <div class="app-card-icon">📦</div>
-          <div class="app-card-tag">Disponible</div>
-          <div class="app-card-title">AppNova Stock</div>
-          <p class="app-card-desc">Control de inventario completo para pequeños negocios. Registra productos</p>
-          <ul class="app-card-features">
-            <li>Gestión interna de productos</li>
-            <li>Alertas de stock mínimo automáticas</li>
-            <li>Roles: vendedor, supervisor, admin</li>
-            <li>Permisos configurables por usuario</li>
-          </ul>
-        </div>
-
-        <!-- AppNova Condominios -->
-        <div class="app-card coming-soon reveal">
-          <div class="app-card-icon">🏢</div>
-          <div class="app-card-tag soon">Próximamente</div>
-          <div class="app-card-title">AppNova Condominios</div>
-          <p class="app-card-desc">Gestión integral de condominios: residentes, visitas, correspondencia, estacionamientos.</p>
-          <ul class="app-card-features">
-            <li>Registro de visitas y accesos</li>
-            <li>Control de correspondencia</li>
-            <li>Gestión de estacionamientos</li>
-          </ul>
-        </div>
-
-        <!-- AppNova Tickets -->
-        <div class="app-card coming-soon reveal">
-          <div class="app-card-icon">🎫</div>
-          <div class="app-card-tag soon">Próximamente</div>
-          <div class="app-card-title">AppNova Tickets</div>
-          <p class="app-card-desc">Sistema de tickets para equipos de soporte TI.</p>
-          <ul class="app-card-features">
-            <li>Registro de incidencias</li>
-            <li>Historial completo de casos</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── PROYECTOS WEB PARA CLIENTES ── -->
-  <section class="webs-section" id="webs">
-    <div class="section-inner">
-      <div class="reveal">
-        <div class="section-eyebrow">Proyectos web</div>
-        <h2 class="section-title">Sitios web para clientes</h2>
-        <div class="section-divider"></div>
-        <p class="section-sub">Desarrollo sitios web institucionales, landing pages y presencia digital para negocios que quieren estar en línea sin complicaciones técnicas.</p>
-      </div>
-
-      <div class="webs-grid">
-        <div class="web-card reveal">
-          <div class="web-card-type">Landing page</div>
-          <div class="web-card-title">Sitio institucional</div>
-          <p class="web-card-desc">Diseño y desarrollo de sitio web corporativo con secciones de servicios, equipo y contacto.</p>
-          <span class="web-card-status status-live">● En línea</span>
-        </div>
-
-        <div class="web-card reveal">
-          <div class="web-card-type">One page</div>
-          <div class="web-card-title">Landing de producto</div>
-          <p class="web-card-desc">Página de presentación para lanzamiento de productos o servicios con llamada a la acción clara.</p>
-          <span class="web-card-status status-live">● En línea</span>
-        </div>
-
-        <div class="web-card reveal">
-          <div class="web-card-type">Catálogo</div>
-          <div class="web-card-title">Catálogo digital</div>
-          <p class="web-card-desc">Catálogo de productos o servicios en línea sin necesidad de e-commerce, ideal para mostrar oferta comercial.</p>
-          <span class="web-card-status status-dev">⚙ En desarrollo</span>
-        </div>
-
-        <div class="web-card reveal">
-          <div class="web-card-type" style="color: var(--blue);">¿Tienes un proyecto?</div>
-          <div class="web-card-title">Hablemos</div>
-          <p class="web-card-desc">¿Necesitas un sitio web o aplicación a medida? Cuéntame tu idea y lo hacemos realidad.</p>
-          <span class="web-card-status status-live" style="margin-top: 1rem; cursor:pointer;">→ Contactar</span>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ── POR QUÉ APPNOVA ── -->
-  <section class="why-section">
-    <div class="section-inner">
-      <div class="why-header reveal">
-        <div class="section-eyebrow">¿Por qué AppNova?</div>
-        <h2 class="section-title">Ventajas reales para tu negocio</h2>
-      </div>
-
-      <div class="why-grid">
-        <div class="why-card reveal">
-          <div class="why-card-icon">⚡</div>
-          <div class="why-card-title">Implementación en 48 hrs</div>
-          <p class="why-card-desc">Sin meses de espera ni procesos complejos. Tu sistema funcionando en menos de 2 días hábiles.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-card-icon">🇨🇱</div>
-          <div class="why-card-title">Soporte local en español</div>
-          <p class="why-card-desc">Atención directa desde Chile. Sin bots, sin tickets perdidos, sin barreras de idioma.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-card-icon">🎨</div>
-          <div class="why-card-title">Personalizable (white label)</div>
-          <p class="why-card-desc">Tu marca en el software. Logo, nombre y colores de tu negocio. AppNova trabaja en segundo plano.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-card-icon">💰</div>
-          <div class="why-card-title">Precio accesible para pymes</div>
-          <p class="why-card-desc">Sin costos ocultos. Un pago de implementación y mensualidad fija. Sin permanencia.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CTA ── -->
-  <section class="cta-section" id="contacto">
-    <div class="section-inner">
-      <div class="cta-inner reveal">
-        <div class="section-eyebrow">¿Listo para empezar?</div>
-        <h2 class="section-title">Tu negocio merece un sistema que funcione</h2>
-        <p class="section-sub">Agenda una demo gratuita y te muestro cómo AppNova puede ayudarte. Sin compromiso.</p>
-
-        <div class="cta-btns">
-          <a href="mailto:contacto@appnova.cl" class="btn-hero-primary">
-            ✉️ Escribirme
-          </a>
-          <button class="btn-hero-secondary" onclick="abrirPortal()">
-            Acceder a mi app
-          </button>
-        </div>
-
-        <p class="cta-note">✓ Sin permanencia &nbsp;·&nbsp; ✓ Implementación en 48 hrs &nbsp;·&nbsp; ✓ Soporte en español</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FOOTER ── -->
-  <footer>
-    <div class="nav-logo" style="gap:10px; display:flex; align-items:center;">
-      <div class="nav-logo-icon">
-        <svg viewBox="0 0 28 28" fill="none" width="16" height="16">
-          <rect x="6" y="2" width="16" height="24" rx="3" fill="white" opacity="0.9"/>
-          <rect x="9" y="5" width="10" height="14" rx="1.5" fill="#3b82f6"/>
-          <circle cx="14" cy="22" r="1.5" fill="#3b82f6"/>
-          <path d="M10.5 11.5L13 14L17.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <span class="footer-copy">AppNova Solutions Ltda. · appnova.cl · Chile</span>
-    </div>
-    <div class="footer-copy">© 2026 Todos los derechos reservados</div>
-    <div class="footer-links">
-      <a href="#">Términos</a>
-      <a href="#">Privacidad</a>
-      <a href="mailto:contacto@appnova.cl">Contacto</a>
-    </div>
-  </footer>
-
-  <!-- ── MODAL PORTAL ── -->
-  <div id="modalPortal" class="modal-overlay">
-    <div class="modal">
-      <div class="modal-header">
-        <div class="modal-title">Acceder a mi aplicación</div>
-        <button class="modal-close-btn" onclick="cerrarPortal()">✕</button>
-      </div>
-      <p class="modal-sub">Selecciona el sistema al que deseas acceder</p>
-
-      <div class="portal-list">
-        <a href= login.html  class="portal-item">
-          <div class="portal-item-left">
-            <div class="portal-item-icon">📦</div>
-            <div>
-              <div class="portal-item-name">AppNova Stock</div>
-              <div class="portal-item-desc">Control de inventario</div>
+            <div class="dp__card">
+              <div class="dp__card-label">Salidas hoy</div>
+              <div class="dp__card-value">37</div>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span class="portal-item-badge badge-live">Activo</span>
-            <span class="portal-arrow">→</span>
-          </div>
-        </a>
-
-        <div class="portal-item" style="cursor:not-allowed; opacity:0.5;">
-          <div class="portal-item-left">
-            <div class="portal-item-icon">🏢</div>
-            <div>
-              <div class="portal-item-name">AppNova Condo</div>
-              <div class="portal-item-desc">Gestión de condominios</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span class="portal-item-badge badge-soon">Próximo</span>
-          </div>
-        </div>
-
-        <div class="portal-item" style="cursor:not-allowed; opacity:0.5;">
-          <div class="portal-item-left">
-            <div class="portal-item-icon">🎫</div>
-            <div>
-              <div class="portal-item-name">AppNova Tickets</div>
-              <div class="portal-item-desc">Soporte TI</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span class="portal-item-badge badge-soon">Próximo</span>
-          </div>
+          <table class="dp__table">
+            <thead>
+              <tr>
+                <th>Hora</th>
+                <th>Producto</th>
+                <th>Tipo</th>
+                <th>Cant.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>09:14</td><td>Martillo 16oz</td><td>Salida</td><td>-3</td></tr>
+              <tr><td>10:32</td><td>Tornillos 1/2"</td><td>Entrada</td><td>+50</td></tr>
+              <tr><td>11:05</td><td>Lija N°120</td><td>Salida</td><td>-5</td></tr>
+              <tr><td>13:47</td><td>Pintura 1L</td><td>Entrada</td><td>+20</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <script src="js/landing.js"></script>
+<!-- ═══ PLANES ════════════════════════════════════════════ -->
+<section class="section" id="planes">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:48px;">
+      <div class="section__eyebrow">Precios</div>
+      <h2 class="section__title">Planes simples,<br>sin letra chica</h2>
+      <p class="section__desc" style="margin:0 auto;">Sin contratos de permanencia. Cancela cuando quieras.</p>
+    </div>
+    <div class="planes-grid reveal">
+      <div class="plan-card">
+        <div class="plan-name">Arranque</div>
+        <div class="plan-price">$15.000 <span>/mes</span></div>
+        <div class="plan-desc">Para negocios que están comenzando a ordenar su inventario.</div>
+        <ul class="plan-features">
+          <li>Hasta 200 productos</li>
+          <li>1 usuario</li>
+          <li>Alertas de stock</li>
+          <li>Soporte por WhatsApp</li>
+        </ul>
+      </div>
+      <div class="plan-card plan-card--featured">
+        <div class="plan-badge">Más popular</div>
+        <div class="plan-name">Crecimiento</div>
+        <div class="plan-price">$25.000 <span>/mes</span></div>
+        <div class="plan-desc">Para negocios en expansión que necesitan más control.</div>
+        <ul class="plan-features">
+          <li>Productos ilimitados</li>
+          <li>Hasta 5 usuarios</li>
+          <li>Roles y permisos</li>
+          <li>Reportes exportables</li>
+          <li>Soporte prioritario</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Operación</div>
+        <div class="plan-price">$35.000 <span>/mes</span></div>
+        <div class="plan-desc">Para negocios con operación intensa y múltiples puntos.</div>
+        <ul class="plan-features">
+          <li>Todo lo anterior</li>
+          <li>Usuarios ilimitados</li>
+          <li>Módulo POS / Lector EAN</li>
+          <li>White label incluido</li>
+          <li>Soporte dedicado</li>
+        </ul>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center; margin-top:28px; font-size:13px; color:var(--text-secondary);">
+      ¿Tienes dudas sobre qué plan elegir? <a href="#contacto" style="color:var(--brand-blue); font-weight:600;">Escríbeme →</a>
+    </p>
+  </div>
+</section>
 
+<!-- ═══ CONTACTO ══════════════════════════════════════════ -->
+<section class="section section--soft" id="contacto">
+  <div class="container">
+    <div class="contact-wrapper reveal">
+      <h2>¿Listo para ordenar tu inventario?</h2>
+      <p>Cuéntame sobre tu negocio y te preparo una propuesta sin compromiso.</p>
+
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-group">
+            <label for="negocio">Negocio</label>
+            <input type="text" id="negocio" name="negocio" placeholder="Ej: Ferretería Don Pedro" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Correo</label>
+            <input type="email" id="email" name="email" placeholder="tu@correo.cl" required />
+          </div>
+          <div class="form-group">
+            <label for="telefono">WhatsApp</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="+56 9 XXXX XXXX" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tipo">Tipo de negocio</label>
+          <select id="tipo" name="tipo">
+            <option value="">Selecciona una opción</option>
+            <option>Minimarket / Almacén</option>
+            <option>Ferretería</option>
+            <option>Botillería</option>
+            <option>Tienda de ropa</option>
+            <option>Distribuidora</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Mensaje (opcional)</label>
+          <textarea id="mensaje" name="mensaje" placeholder="¿Qué necesitas controlar? ¿Cuántos productos tienes aproximadamente?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:13px;">
+          Enviar mensaje →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════ -->
+<footer class="footer">
+  <p>
+    AppNova Solutions Ltda. · <a href="mailto:contacto@appnova.cl">contacto@appnova.cl</a> · Chile<br>
+    <span style="margin-top:4px; display:inline-block;">© 2026 Todos los derechos reservados</span>
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
 </body>
 </html>
