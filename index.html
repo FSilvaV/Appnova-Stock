@@ -1,306 +1,774 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AppNova Solutions — Software para tu negocio</title>
-  <meta name="description" content="Sistema de control de inventario simple y accesible para pequeños negocios en Chile. AppNova Stock." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AppNova Solutions | Tecnología que se adapta a tu negocio</title>
+
+    <meta
+        name="description"
+        content="Sistemas de gestión, aplicaciones y sitios web adaptables para pequeños negocios y empresas en Chile."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<!-- ═══ NAVBAR ═══════════════════════════════════════════ -->
-<nav class="nav">
-  <div class="nav__inner">
-    <a href="#" class="nav__logo">
-      <div class="nav__logo-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <rect x="5" y="2" width="14" height="20" rx="2" fill="white"/>
-          <rect x="8" y="6" width="8" height="1.5" rx=".75" fill="#2563EB"/>
-          <rect x="8" y="9.5" width="8" height="1.5" rx=".75" fill="#2563EB"/>
-          <rect x="8" y="13" width="5" height="1.5" rx=".75" fill="#93C5FD"/>
-        </svg>
-      </div>
-      <div class="nav__logo-text">
-        <span class="nav__logo-name">AppNova</span>
-        <span class="nav__logo-sub">Solutions Ltda.</span>
-      </div>
-    </a>
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-    <div class="nav__actions">
-      <a href="#contacto" class="nav__link">Contacto</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-        <!-- Sol -->
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <!-- Luna -->
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-</nav>
+<header class="navbar">
 
-<!-- ═══ HERO ══════════════════════════════════════════════ -->
-<section class="hero">
-  <div class="hero__inner">
-    <div class="hero__content">
-      <div class="hero__badge">
-        <span class="hero__badge-dot"></span>
-        Disponible ahora · AppNova Stock
-      </div>
-      <h1 class="hero__title">
-        Tu inventario,<br>
-        <span>bajo control.</span>
-      </h1>
-      <p class="hero__desc">
-        Sistema de control de stock simple y accesible para pequeños negocios en Chile. Sin complicaciones, sin costos ocultos.
-      </p>
-      <div class="hero__cta">
-        <a href="#contacto" class="btn btn-primary">Solicitar información</a>
-        <a href="#stock" class="btn btn-outline">Ver funciones →</a>
-      </div>
-      <div class="hero__stats">
-        <div>
-          <div class="hero__stat-num">48h</div>
-          <div class="hero__stat-label">Implementación</div>
-        </div>
-        <div>
-          <div class="hero__stat-num">100%</div>
-          <div class="hero__stat-label">Hecho en Chile</div>
-        </div>
-        <div>
-          <div class="hero__stat-num">$0</div>
-          <div class="hero__stat-label">Costos ocultos</div>
-        </div>
-      </div>
-    </div>
+    <div class="container navbar__inner">
 
-    <!-- Dashboard animado -->
-    <div class="dashboard-preview">
-      <div class="dp__bar">
-        <span class="dp__dot dp__dot--red"></span>
-        <span class="dp__dot dp__dot--yellow"></span>
-        <span class="dp__dot dp__dot--green"></span>
-        <span class="dp__title-bar">AppNova Stock · Panel de control</span>
-      </div>
-      <div class="dp__body">
-        <div class="dp__cards">
-          <div class="dp__card">
-            <div class="dp__card-label">Productos</div>
-            <div class="dp__card-value">142</div>
-          </div>
-          <div class="dp__card">
-            <div class="dp__card-label">Stock ok</div>
-            <div class="dp__card-value">138</div>
-          </div>
-          <div class="dp__card">
-            <div class="dp__card-label">Alertas</div>
-            <div class="dp__card-value alert">4</div>
-          </div>
-        </div>
-        <table class="dp__table">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Stock</th>
-              <th>Precio</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody id="dp-tbody">
-            <tr>
-              <td>Martillo 16oz</td><td>45</td><td>$8.990</td>
-              <td><span class="badge badge--ok">Ok</span></td>
-            </tr>
-            <tr>
-              <td>Tornillos 1/2"</td><td>8</td><td>$2.490</td>
-              <td><span class="badge badge--low">Bajo</span></td>
-            </tr>
-            <tr>
-              <td>Lija N°120</td><td>29</td><td>$390</td>
-              <td><span class="badge badge--ok">Ok</span></td>
-            </tr>
-            <tr>
-              <td>Pintura 1L</td><td>2</td><td>$4.200</td>
-              <td><span class="badge badge--low">Bajo</span></td>
-            </tr>
-            <tr>
-              <td>Cinta adhesiva</td><td>60</td><td>$1.290</td>
-              <td><span class="badge badge--ok">Ok</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
+        <a href="#inicio" class="brand">
+            <div class="brand__icon">A</div>
 
-<!-- ═══ APPNOVA STOCK ══════════════════════════════════════ -->
-<section class="section section--soft" id="stock">
-  <div class="container">
-    <div class="reveal">
-      <div class="section__eyebrow">AppNova Stock</div>
-      <h2 class="section__title">Control de inventario<br>sin complicaciones</h2>
-      <p class="section__desc">
-        Diseñado para ferreterías, minimarkets, botillerías y negocios de barrio. Funciona desde el día uno.
-      </p>
-    </div>
-    <div class="stock-grid reveal">
-      <ul class="features-list">
-        <li>
-          <div class="feature-icon">📦</div>
-          <div class="feature-text">
-            <strong>Gestión de productos</strong>
-            <span>Agrega, edita y organiza tu inventario por categorías con fotos y precios.</span>
-          </div>
-        </li>
-        <li>
-          <div class="feature-icon">🔔</div>
-          <div class="feature-text">
-            <strong>Alertas de stock mínimo</strong>
-            <span>Te avisamos automáticamente cuando un producto está por agotarse.</span>
-          </div>
-        </li>
-        <li>
-          <div class="feature-icon">👥</div>
-          <div class="feature-text">
-            <strong>Roles de usuario</strong>
-            <span>Vendedor, supervisor y administrador con permisos configurables.</span>
-          </div>
-        </li>
-        <li>
-          <div class="feature-icon">📊</div>
-          <div class="feature-text">
-            <strong>Movimientos y reportes</strong>
-            <span>Historial completo de entradas, salidas y ventas con exportación a Excel.</span>
-          </div>
-        </li>
-        <li>
-          <div class="feature-icon">🏷️</div>
-          <div class="feature-text">
-            <strong>White label disponible</strong>
-            <span>Tu logo y nombre de negocio en el sistema. AppNova trabaja en segundo plano.</span>
-          </div>
-        </li>
-      </ul>
-
-      <div class="dashboard-preview">
-        <div class="dp__bar">
-          <span class="dp__dot dp__dot--red"></span>
-          <span class="dp__dot dp__dot--yellow"></span>
-          <span class="dp__dot dp__dot--green"></span>
-          <span class="dp__title-bar">Movimientos del día</span>
-        </div>
-        <div class="dp__body">
-          <div class="dp__cards" style="grid-template-columns:1fr 1fr;">
-            <div class="dp__card">
-              <div class="dp__card-label">Entradas hoy</div>
-              <div class="dp__card-value">12</div>
+            <div class="brand__text">
+                <strong>AppNova Solutions</strong>
+                <span>Tecnología para tu negocio</span>
             </div>
-            <div class="dp__card">
-              <div class="dp__card-label">Salidas hoy</div>
-              <div class="dp__card-value">37</div>
+        </a>
+
+        <nav class="nav">
+
+            <a href="#inicio">Inicio</a>
+            <a href="#soluciones">Soluciones</a>
+            <a href="#proceso">Cómo trabajamos</a>
+            <a href="#demos">Demos</a>
+            <a href="#contacto">Contacto</a>
+
+        </nav>
+
+        <div class="navbar__actions">
+
+            <button
+                class="theme-toggle"
+                id="themeToggle"
+                aria-label="Cambiar tema"
+            >
+                ☾
+            </button>
+
+            <a href="#contacto" class="btn btn--primary btn--small">
+                Hablemos
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero" id="inicio">
+
+    <div class="container hero__grid">
+
+        <div class="hero__content">
+
+            <span class="eyebrow">
+                Tecnología para tu negocio
+            </span>
+
+            <h1>
+                Tecnología que se adapta
+                <span>a tu negocio.</span>
+            </h1>
+
+            <p class="hero__description">
+                Sistemas de gestión, aplicaciones y sitios web
+                para pequeños negocios y empresas.
+                Parte con una solución base y personalízala
+                según lo que realmente necesitas.
+            </p>
+
+            <div class="hero__buttons">
+
+                <a href="#soluciones" class="btn btn--primary">
+                    Conocer soluciones →
+                </a>
+
+                <a href="#contacto" class="btn btn--outline">
+                    Cuéntame qué necesitas
+                </a>
+
             </div>
-          </div>
-          <table class="dp__table">
-            <thead>
-              <tr>
-                <th>Hora</th>
-                <th>Producto</th>
-                <th>Tipo</th>
-                <th>Cant.</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>09:14</td><td>Martillo 16oz</td><td>Salida</td><td>-3</td></tr>
-              <tr><td>10:32</td><td>Tornillos 1/2"</td><td>Entrada</td><td>+50</td></tr>
-              <tr><td>11:05</td><td>Lija N°120</td><td>Salida</td><td>-5</td></tr>
-              <tr><td>13:47</td><td>Pintura 1L</td><td>Entrada</td><td>+20</td></tr>
-            </tbody>
-          </table>
+
+
+            <div class="hero__features">
+
+                <div class="mini-feature">
+                    <span>🧩</span>
+
+                    <div>
+                        <strong>Solución base</strong>
+                        <small>Comienza rápido</small>
+                    </div>
+                </div>
+
+                <div class="mini-feature">
+                    <span>⚙️</span>
+
+                    <div>
+                        <strong>Personalizable</strong>
+                        <small>Se adapta a tu trabajo</small>
+                    </div>
+                </div>
+
+                <div class="mini-feature">
+                    <span>📈</span>
+
+                    <div>
+                        <strong>Escalable</strong>
+                        <small>Crece cuando lo necesites</small>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-      </div>
+
+
+        <!-- MOCKUP PRINCIPAL -->
+
+        <div class="hero__visual">
+
+            <div class="app-window">
+
+                <div class="app-window__top">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                    <small>AppNova · Panel principal</small>
+
+                </div>
+
+                <div class="app-window__body">
+
+                    <div class="mock-sidebar">
+
+                        <strong>AppNova</strong>
+
+                        <span>▣ Dashboard</span>
+                        <span>▣ Pedidos</span>
+                        <span>▣ Ventas</span>
+                        <span>▣ Clientes</span>
+                        <span>▣ Reportes</span>
+
+                    </div>
+
+                    <div class="mock-content">
+
+                        <h3>Panel principal</h3>
+
+                        <div class="mock-stats">
+
+                            <div>
+                                <small>Ventas hoy</small>
+                                <strong>$320.000</strong>
+                            </div>
+
+                            <div>
+                                <small>Pedidos</small>
+                                <strong>28</strong>
+                            </div>
+
+                            <div>
+                                <small>Productos</small>
+                                <strong>142</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="mock-chart">
+
+                            <div class="mock-chart__header">
+                                Ventas de la semana
+                            </div>
+
+                            <div class="chart-bars">
+
+                                <span style="height: 38%"></span>
+                                <span style="height: 55%"></span>
+                                <span style="height: 48%"></span>
+                                <span style="height: 75%"></span>
+                                <span style="height: 63%"></span>
+                                <span style="height: 82%"></span>
+                                <span style="height: 68%"></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="floating-card floating-card--orders">
+                🛒
+                <div>
+                    <strong>Pedidos online</strong>
+                    <small>Integración con tu negocio</small>
+                </div>
+            </div>
+
+            <div class="floating-card floating-card--payments">
+                💳
+                <div>
+                    <strong>Pagos online</strong>
+                    <small>Opciones de integración</small>
+                </div>
+            </div>
+
+            <div class="floating-card floating-card--web">
+                🌐
+                <div>
+                    <strong>Tu sitio web</strong>
+                    <small>Conectado a tu sistema</small>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-  </div>
+
 </section>
 
-<!-- ═══ PLANES ════════════════════════════════════════════ -->
 
 
-<!-- ═══ CONTACTO ══════════════════════════════════════════ -->
-<section class="section section--soft" id="contacto">
-  <div class="container">
-    <div class="contact-wrapper reveal">
-      <h2>¿Listo para ordenar tu inventario?</h2>
-      <p>Cuéntame sobre tu negocio y te preparo una propuesta sin compromiso.</p>
+<!-- =====================================================
+     SOLUCIONES
+===================================================== -->
 
-      <form id="contactForm">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
-          </div>
-          <div class="form-group">
-            <label for="negocio">Negocio</label>
-            <input type="text" id="negocio" name="negocio" placeholder="Ej: Ferretería Don Pedro" />
-          </div>
+<section class="section section--light" id="soluciones">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                Soluciones AppNova
+            </span>
+
+            <h2>
+                Soluciones para distintos tipos de negocios
+            </h2>
+
+            <p>
+                Partimos desde una base y la adaptamos
+                a lo que realmente necesitas.
+            </p>
+
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="email">Correo</label>
-            <input type="email" id="email" name="email" placeholder="tu@correo.cl" required />
-          </div>
-          <div class="form-group">
-            <label for="telefono">WhatsApp</label>
-            <input type="tel" id="telefono" name="telefono" placeholder="+56 9 XXXX XXXX" />
-          </div>
+
+
+        <div class="solutions-grid">
+
+
+            <!-- RESTAURANTES -->
+
+            <article class="solution-card">
+
+                <div class="solution-card__visual solution-card__visual--restaurant">
+                    🍽️
+                </div>
+
+                <div class="solution-card__body">
+
+                    <span class="solution-icon">🍣</span>
+
+                    <h3>Gestión de Locales</h3>
+
+                    <p>
+                        Pedidos, ventas, caja, mesas,
+                        inventario y reportes.
+                        Ideal para restaurantes, sushi,
+                        cafeterías y otros locales.
+                    </p>
+
+                    <div class="solution-card__actions">
+
+                        <a href="#contacto" class="btn btn--primary">
+                            Conocer solución
+                        </a>
+
+                        <button class="btn btn--outline demo-button">
+                            Ver demo 🔒
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- STOCK -->
+
+            <article class="solution-card">
+
+                <div class="solution-card__visual solution-card__visual--stock">
+                    📦
+                </div>
+
+                <div class="solution-card__body">
+
+                    <span class="solution-icon">📦</span>
+
+                    <h3>Control de Stock</h3>
+
+                    <p>
+                        Productos, inventario, proveedores,
+                        ventas, alertas y reportes.
+                        Para comercios y pequeños negocios.
+                    </p>
+
+                    <div class="solution-card__actions">
+
+                        <a href="#contacto" class="btn btn--primary">
+                            Conocer solución
+                        </a>
+
+                        <button class="btn btn--outline demo-button">
+                            Ver demo 🔒
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- CONDOMINIOS -->
+
+            <article class="solution-card">
+
+                <div class="solution-card__visual solution-card__visual--condo">
+                    🏢
+                </div>
+
+                <div class="solution-card__body">
+
+                    <span class="solution-icon">🏢</span>
+
+                    <h3>Gestión de Condominios</h3>
+
+                    <p>
+                        Accesos, visitas, residentes,
+                        estacionamientos, correspondencia
+                        y herramientas de administración.
+                    </p>
+
+                    <div class="solution-card__actions">
+
+                        <a href="#contacto" class="btn btn--primary">
+                            Conocer solución
+                        </a>
+
+                        <button class="btn btn--outline demo-button">
+                            Ver demo 🔒
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
         </div>
-        <div class="form-group">
-          <label for="tipo">Tipo de negocio</label>
-          <select id="tipo" name="tipo">
-            <option value="">Selecciona una opción</option>
-            <option>Minimarket / Almacén</option>
-            <option>Ferretería</option>
-            <option>Botillería</option>
-            <option>Tienda de ropa</option>
-            <option>Distribuidora</option>
-            <option>Otro</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="mensaje">Mensaje (opcional)</label>
-          <textarea id="mensaje" name="mensaje" placeholder="¿Qué necesitas controlar? ¿Cuántos productos tienes aproximadamente?"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:13px;">
-          Enviar mensaje →
-        </button>
-      </form>
+
     </div>
-  </div>
+
 </section>
 
-<!-- ═══ FOOTER ════════════════════════════════════════════ -->
+
+
+<!-- =====================================================
+     COMO TRABAJAMOS
+===================================================== -->
+
+<section class="section process" id="proceso">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                Proceso simple
+            </span>
+
+            <h2>¿Cómo trabajamos?</h2>
+
+            <p>
+                Te acompañamos en cada etapa para que
+                tu sistema realmente te ayude.
+            </p>
+
+        </div>
+
+
+        <div class="process-grid">
+
+            <article class="process-card">
+
+                <span class="process-number">1</span>
+
+                <div class="process-icon">💬</div>
+
+                <h3>Conversamos</h3>
+
+                <p>
+                    Nos cuentas cómo funciona tu negocio
+                    y qué necesitas.
+                </p>
+
+            </article>
+
+
+            <article class="process-card">
+
+                <span class="process-number">2</span>
+
+                <div class="process-icon">⚙️</div>
+
+                <h3>Configuramos</h3>
+
+                <p>
+                    Partimos desde una solución existente
+                    o realizamos las adaptaciones necesarias.
+                </p>
+
+            </article>
+
+
+            <article class="process-card">
+
+                <span class="process-number">3</span>
+
+                <div class="process-icon">🚀</div>
+
+                <h3>Implementamos</h3>
+
+                <p>
+                    Preparamos y configuramos tu sistema
+                    para comenzar a utilizarlo.
+                </p>
+
+            </article>
+
+
+            <article class="process-card">
+
+                <span class="process-number">4</span>
+
+                <div class="process-icon">📈</div>
+
+                <h3>Crecemos contigo</h3>
+
+                <p>
+                    Puedes incorporar nuevas funciones
+                    cuando tu negocio lo necesite.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DEMOS
+===================================================== -->
+
+<section class="section demos" id="demos">
+
+    <div class="container demos__grid">
+
+        <div class="demos__intro">
+
+            <span class="eyebrow eyebrow--dark">
+                Conoce antes de decidir
+            </span>
+
+            <h2>Demos interactivas</h2>
+
+            <p>
+                Explora algunas de nuestras soluciones
+                y conoce cómo podrían funcionar
+                dentro de tu negocio.
+            </p>
+
+            <a href="#contacto" class="btn btn--primary">
+                Solicitar acceso a las demos 🔒
+            </a>
+
+        </div>
+
+
+        <div class="demo-grid">
+
+            <article class="demo-card">
+
+                <div class="demo-card__image">🍣</div>
+
+                <h3>Gestión de Local</h3>
+
+                <p>
+                    Pedidos · Ventas · Caja · Inventario
+                </p>
+
+                <button class="btn btn--primary demo-button">
+                    Solicitar acceso
+                </button>
+
+            </article>
+
+
+            <article class="demo-card">
+
+                <div class="demo-card__image">📦</div>
+
+                <h3>Control de Stock</h3>
+
+                <p>
+                    Productos · Proveedores · Alertas · Reportes
+                </p>
+
+                <button class="btn btn--primary demo-button">
+                    Solicitar acceso
+                </button>
+
+            </article>
+
+
+            <article class="demo-card">
+
+                <div class="demo-card__image">🏢</div>
+
+                <h3>Condominios</h3>
+
+                <p>
+                    Accesos · Visitas · Residentes · Estacionamientos
+                </p>
+
+                <button class="btn btn--disabled" disabled>
+                    Próximamente
+                </button>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SITIOS WEB
+===================================================== -->
+
+<section class="section web-section">
+
+    <div class="container web-grid">
+
+        <div>
+
+            <span class="eyebrow">
+                Tu presencia digital
+            </span>
+
+            <h2>
+                Tu sitio web también puede
+                ser parte del sistema.
+            </h2>
+
+            <p>
+                Creamos sitios web, catálogos y páginas
+                para negocios. Cuando el proyecto lo requiere,
+                podemos conectar tu sitio con herramientas
+                de gestión, pedidos, reservas u otras
+                funcionalidades.
+            </p>
+
+            <div class="hero__buttons">
+
+                <a href="#contacto" class="btn btn--primary">
+                    Cuéntame tu idea
+                </a>
+
+                <a href="#contacto" class="btn btn--outline">
+                    Conversemos
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="ecosystem">
+
+            <div class="ecosystem__site">
+
+                <span>🌐</span>
+
+                <strong>Tu negocio online</strong>
+
+                <small>
+                    Sitio web · catálogo · pedidos
+                </small>
+
+            </div>
+
+
+            <div class="ecosystem__connections">
+
+                <div>
+                    🌐
+                    <span>
+                        <strong>Sitio web</strong>
+                        <small>Catálogo y pedidos</small>
+                    </span>
+                </div>
+
+                <div>
+                    ⚙️
+                    <span>
+                        <strong>Sistema de gestión</strong>
+                        <small>Ventas e inventario</small>
+                    </span>
+                </div>
+
+                <div>
+                    💳
+                    <span>
+                        <strong>Pagos online</strong>
+                        <small>Integraciones disponibles</small>
+                    </span>
+                </div>
+
+                <div>
+                    🚚
+                    <span>
+                        <strong>Delivery</strong>
+                        <small>Opciones de integración</small>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA / CONTACTO
+===================================================== -->
+
+<section class="contact-section" id="contacto">
+
+    <div class="container">
+
+        <div class="contact-cta">
+
+            <div>
+
+                <h2>Cuéntame qué necesitas.</h2>
+
+                <p>
+                    No necesitas saber qué sistema buscar.
+                    Cuéntame cómo funciona tu negocio,
+                    qué problema quieres resolver o qué
+                    proceso quieres mejorar.
+                </p>
+
+            </div>
+
+            <a
+                href="mailto:contacto@appnova.cl"
+                class="btn btn--contact"
+            >
+                💬 Conversar sobre mi proyecto →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer class="footer">
-  <p>
-    AppNova Solutions Ltda. · <a href="mailto:contacto@appnova.cl">contacto@appnova.cl</a> · Chile<br>
-    <span style="margin-top:4px; display:inline-block;">© 2026 Todos los derechos reservados</span>
-  </p>
+
+    <div class="container footer__inner">
+
+        <div class="footer__brand">
+            <strong>AppNova Solutions</strong>
+        </div>
+
+        <div class="footer__links">
+
+            <a href="#inicio">Inicio</a>
+            <a href="#soluciones">Soluciones</a>
+            <a href="#proceso">Cómo trabajamos</a>
+            <a href="#demos">Demos</a>
+            <a href="#contacto">Contacto</a>
+
+        </div>
+
+        <small>
+            © 2026 AppNova Solutions · Chile
+        </small>
+
+    </div>
+
 </footer>
 
-<script src="js/main.js"></script>
+
+<script src="js/site.js"></script>
+
 </body>
 </html>
